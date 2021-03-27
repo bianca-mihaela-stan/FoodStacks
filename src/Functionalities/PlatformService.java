@@ -7,13 +7,13 @@ import java.util.stream.Stream;
 
 public class PlatformService {
     protected static PlatformService instance;
-    protected Map<String, Client> clientsByEmail = new Hashtable<String, Client>();
-    protected Map<String, Owner> ownersByEmail = new Hashtable<String, Owner>();
-    protected Set<Driver> drivers = new HashSet<Driver>();
-    protected Set<Restaurant> restaurants = new HashSet<Restaurant>();
+    protected static Map<String, Client> clientsByEmail = new Hashtable<String, Client>();
+    protected static Map<String, Owner> ownersByEmail = new Hashtable<String, Owner>();
+    protected static Set<Driver> drivers = new HashSet<Driver>();
+    protected static Set<Restaurant> restaurants = new HashSet<Restaurant>();
 
 
-    private User loggedInUser= null;
+    protected static User loggedInUser= null;
 
     protected Scanner scanner = new Scanner(System.in);
 
@@ -31,124 +31,108 @@ public class PlatformService {
         return instance;
     }
 
-    protected Boolean validateEmail(String email)
+    public static User getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public static void setLoggedInUser(User loggedInUser) {
+        PlatformService.loggedInUser = loggedInUser;
+    }
+
+    protected static Boolean validateEmail(String email)
     {
         return email.matches("^(.+)@(.+)$");
     }
 
-    protected Boolean validatePassword(String password)
+    protected static Boolean validatePassword(String password)
     {
         return  password.matches(".*[A-Z]+.*") &&
                 password.matches(".*[a-z]+.*") &&
                 password.matches(".*[0-9]+.*");
     }
 
-    public void Register()
+    public static int Register(String email, String password)
     {
-        String email="", password="";
-        Boolean emailOk = false;
-        System.out.println("---------LOG IN---------");
 
-        while(emailOk==false)
+        if(clientsByEmail.containsKey(email))
         {
-            System.out.println("Email: ");
-            email = scanner.next();
-            if(email == ":q")
-            {
-                return;
-            }
-
-            if(clientsByEmail.containsKey(email))
-            {
-                System.out.println("This email already has an account! Press :q to exit.");
-                return;
-            }
-
-            if(validateEmail(email)==false)
-            {
-                System.out.println("You need to type a valid email! Press :q to exit.");
-            }
-
-
-            emailOk=!clientsByEmail.containsKey(email) && validateEmail(email);
+            return 0; //"This email already has an account! Press :q to exit.";
         }
 
-        Boolean passwordOk = false;
-        while(passwordOk==false)
+        if(validateEmail(email)==false)
         {
-            System.out.println("at least 8 characters\n" +
-                    "at least 1 uppercase\n" +
-                    "at least 1 lowercase\n" +
-                    "at least 1 number\n");
-            System.out.println("Password: ");
-            password = scanner.next();
-
-            if(password == ":q")
-            {
-                return;
-            }
-
-            if(validatePassword(password)){
-                passwordOk=true;
-            }
-            else
-            {
-                System.out.println("Password must have: \n" +
-                        "at least 8 characters\n" +
-                        "at least 1 uppercase\n" +
-                        "at least 1 lowercase\n" +
-                        "at least 1 number\n");
-            }
+            return 1; //"You need to type a valid email! Press :q to exit.");
         }
 
-        if(emailOk && passwordOk)
+
+        System.out.println("at least 8 characters\n" +
+                "at least 1 uppercase\n" +
+                "at least 1 lowercase\n" +
+                "at least 1 number\n");
+        System.out.println("Password: ");
+
+        if(validatePassword(password)== false){
+            return 2;
+//            system.out.println("Password must have: \n" +
+//            "at least 8 characters\n" +
+//            "at least 1 uppercase\n" +
+//            "at least 1 lowercase\n" +
+//            "at least 1 number\n");
+        }
+        else
         {
             System.out.println("Successfully registered!");
             Client new_client = new Client.Builder(email, password).build();
             clientsByEmail.put(email, new_client);
             loggedInUser=new_client;
+            return 3;//Successfully registered!
         }
 
     }
 
+    public static  int RegisterAsOwner(String email, String password)
+    {
+        if(ownersByEmail.containsKey(email))
+        {
+            return 0; //("This email already has an account! Press :q to exit.");
+        }
 
-    public void LogIn()
+        if(!validateEmail(email))
+        {
+            return 1;//"You need to type a valid email! Press :q to exit.");
+        }
+
+        if(!validatePassword(password)){
+            return 2;
+            //
+        }
+
+        System.out.println("Successfully logged in!");
+        Owner new_owner = new Owner.Builder(email, password).build();
+        ownersByEmail.put(email, new_owner);
+        loggedInUser=new_owner;
+
+        return 3;
+    }
+
+
+    public static int LogIn(String email, String password)
     {
         if(loggedInUser!=null)
         {
-            System.out.println("You are already logged in!");
+            return 0;//"You are already logged in!");
         }
         else {
-            String email="", password="";
-            Boolean ok = false;
-            System.out.println("---------LOG IN---------");
-            while(ok==false)
-            {
-                System.out.println("Email: ");
-                email = scanner.next();
-                if(email == ":q")
-                {
-                    return;
-                }
 
-                System.out.println("Password: ");
-                password = scanner.next();
-
-                if(password == ":q")
-                {
-                    return;
-                }
-
-                if(clientsByEmail.get(email).getPassword()==password){
-                    ok=true;
-                    loggedInUser=clientsByEmail.get(email);
-                }
-                else
-                {
-                    System.out.println("Email or password is incorrect!");
-                }
-
+            if(clientsByEmail.get(email)!=null && clientsByEmail.get(email).getPassword()==password){
+                loggedInUser=clientsByEmail.get(email);
+                return 1;//suceessfully signed in
             }
+            else
+            {
+                return 2; //("Email or password is incorrect!");
+            }
+
         }
 
     }

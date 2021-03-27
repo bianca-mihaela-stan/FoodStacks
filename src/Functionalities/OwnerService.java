@@ -9,7 +9,6 @@ import org.javatuples.Pair;
 
 public class OwnerService extends PlatformService {
     protected static OwnerService instance;
-    private Owner loggedInUser = null;
 
     public static OwnerService getInstance()
     {
@@ -20,72 +19,6 @@ public class OwnerService extends PlatformService {
         return instance;
     }
 
-    public void Register()
-    {
-        String email="", password="";
-        Boolean emailOk = false;
-        System.out.println("---------LOG IN---------");
-
-        while(emailOk==false)
-        {
-            System.out.println("Email: ");
-            email = scanner.next();
-            if(email == ":q")
-            {
-                return;
-            }
-
-            if(ownersByEmail.containsKey(email))
-            {
-                System.out.println("This email already has an account! Press :q to exit.");
-                return;
-            }
-
-            if(validateEmail(email)==false)
-            {
-                System.out.println("You need to type a valid email! Press :q to exit.");
-            }
-
-
-            emailOk=!ownersByEmail.containsKey(email) && validateEmail(email);
-        }
-
-        Boolean passwordOk = false;
-        while(passwordOk==false)
-        {
-            System.out.println("at least 8 characters\n" +
-                    "at least 1 uppercase\n" +
-                    "at least 1 lowercase\n" +
-                    "at least 1 number\n");
-            System.out.println("Password: ");
-            password = scanner.next();
-
-            if(password == ":q")
-            {
-                return;
-            }
-
-            if(validatePassword(password)){
-                passwordOk=true;
-            }
-            else
-            {
-                System.out.println("Password must have: \n" +
-                        "at least 8 characters\n" +
-                        "at least 1 uppercase\n" +
-                        "at least 1 lowercase\n" +
-                        "at least 1 number\n");
-            }
-        }
-
-        if(emailOk && passwordOk)
-        {
-            System.out.println("Successfully logged in!");
-            Owner new_client = new Owner.Builder(email, password).build();
-            ownersByEmail.put(email, new_client);
-            loggedInUser=new_client;
-        }
-    }
 
     public void removeRestaurant(Restaurant restaurant)
     {

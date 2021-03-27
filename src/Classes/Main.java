@@ -1,5 +1,4 @@
 package Classes;
-import javafx.*;
 
 
 import Functionalities.OwnerService;
@@ -23,13 +22,13 @@ public class Main {
 
         Menu menu1 = new Menu();
 
-        PlatformService platform = PlatformService.getInstance();
-        OwnerService owner = OwnerService.getInstance();
-        owner.Register();
+//        PlatformService platform = PlatformService.getInstance();
+//        OwnerService owner = OwnerService.getInstance();
+//        owner.Register();
 
-        owner.addRestaurant(restaurant1);
-        owner.addMenu(menu1, restaurant1);
-        System.out.println(owner.getMenus(restaurant1));
+//        owner.addRestaurant(restaurant1);
+//        owner.addMenu(menu1, restaurant1);
+//        System.out.println(owner.getMenus(restaurant1));
 //
 //        obj.addAddress(address1, AddressIdentifier.Home);
 //        System.out.println(obj.getAddresses());
