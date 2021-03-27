@@ -6,7 +6,7 @@ import org.javatuples.Pair;
 
 public class Dish {
     private String name;
-    private HashMap<Ingredient, Pair<Integer , Quantity>> recipe;
+    private HashMap<String, Pair<Integer , Quantity>> recipe;
     private List<Review> reviews;
 
     public String getName() {
@@ -26,11 +26,11 @@ public class Dish {
         this.name = name;
     }
 
-    public HashMap<Ingredient, Pair<Integer, Quantity>> getRecipe() {
+    public HashMap<String, Pair<Integer, Quantity>> getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(HashMap<Ingredient, Pair<Integer, Quantity>> recipe) {
+    public void setRecipe(HashMap<String, Pair<Integer, Quantity>> recipe) {
         this.recipe = recipe;
     }
 
@@ -42,19 +42,19 @@ public class Dish {
         this.reviews = reviews;
     }
 
-    public void addIngredient(Ingredient ingredient, Integer nr, Quantity quantity)
+    public void addString(String String, Integer nr, Quantity quantity)
     {
-        recipe.putIfAbsent(ingredient, new Pair<Integer, Quantity>(nr, quantity));
+        recipe.putIfAbsent(String, new Pair<Integer, Quantity>(nr, quantity));
     }
 
-    public void setQuantity(Ingredient ingredient, Integer nr)
+    public void setQuantity(String String, Integer nr)
     {
-        recipe.get(ingredient).setAt0(nr);
+        recipe.get(String).setAt0(nr);
     }
 
-    public void setQuantity(Ingredient ingredient, Quantity quantity)
+    public void setQuantity(String String, Quantity quantity)
     {
-        recipe.get(ingredient).setAt1(quantity);
+        recipe.get(String).setAt1(quantity);
     }
 
     public void addReview(Review review)

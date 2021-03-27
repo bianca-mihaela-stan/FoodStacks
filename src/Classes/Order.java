@@ -2,6 +2,8 @@ package Classes;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.javatuples.Triplet;
 import org.javatuples.Pair;
 
@@ -11,6 +13,32 @@ public class Order {
     protected Float finalPrice;
     protected Restaurant restaurant;
     protected User user;
+    protected Long id;
+
+
+    protected static AtomicLong userID = new AtomicLong(0);
+
+    protected static Long newID()
+    {
+        return userID.incrementAndGet();
+    }
+
+    Order()
+    {
+        this.date = LocalDate.now();
+        this.id=newID();
+    }
+    Order(LocalDate date, List<Triplet<Dish, Integer, Float>> dishesOrdered,
+          Float finalPrice, Restaurant restaurant, User user)
+    {
+        this.date=date;
+        this.dishesOrdered=dishesOrdered;
+        this.finalPrice=finalPrice;
+        this.restaurant=restaurant;
+        this.user=user;
+        this.id=newID();
+        this.sortDishes();
+    }
 
     public static class Builder{
         private Order order = new Order();
@@ -72,11 +100,13 @@ public class Order {
     }
 
     public List<Triplet<Dish, Integer, Float>> getDishesOrdered() {
+        this.sortDishes();
         return dishesOrdered;
     }
 
     public void setDishesOrdered(List<Triplet<Dish, Integer, Float>> dishesOrdered) {
         this.dishesOrdered = dishesOrdered;
+        this.sortDishes();
     }
 
     public Float getFinalPrice() {
@@ -126,5 +156,18 @@ public class Order {
                 dishesOrdered.remove(elem);
             }
         }
+    }
+
+    protected void sortDishes()
+    {
+        dishesOrdered.sort(new Comparator<Triplet<Dish, Integer, Float>>() {
+            @Override
+            public int compare(Triplet<Dish, Integer, Float> o1, Triplet<Dish, Integer, Float> o2) {
+                if(o1.getValue0().getName().compareTo(o2.getValue0().getName()) < 0){
+                    return 1;
+                }
+                return 0;
+            }
+        });
     }
 }

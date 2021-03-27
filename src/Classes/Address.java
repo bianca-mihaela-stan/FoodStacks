@@ -1,5 +1,7 @@
 package Classes;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Address {
     protected Country country;
@@ -8,21 +10,69 @@ public class Address {
     protected Integer sector;
     protected String street;
     protected String number;
+    protected String block;
+    protected String entrance;        // scara blocului
+    protected Integer floor;
+    protected Integer apartmentNumber;
+    protected Long id;
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "country=" + country +
-                ", county=" + county +
-                ", city='" + city + '\'' +
-                ", sector=" + sector +
-                ", street='" + street + '\'' +
-                ", number='" + number + '\'' +
-                ", block='" + block + '\'' +
-                ", entrance='" + entrance + '\'' +
-                ", floor=" + floor +
-                ", apartmentNumber=" + apartmentNumber +
-                '}';
+    private static AtomicLong addressID = new AtomicLong(0);
+
+    private static Long newID()
+    {
+        return addressID.incrementAndGet();
+    }
+
+    Address()
+    {
+        id=newID();
+    }
+
+    Address(Country country, County county, String city, Integer sector,
+            String street, String number, String block, String entrance,
+            Integer floor, Integer apartmentNumber)
+    {
+        this.id = newID();
+        this.country=country;
+        this.county=county;
+        this.city=city;
+        this.sector=sector;
+        this.street=street;
+        this.number=number;
+        this.block=block;
+        this.entrance=entrance;
+        this.floor=floor;
+        this.apartmentNumber=apartmentNumber;
+    }
+
+    public static class Builder{
+        private Address address = new Address();
+
+        public Address build(){
+            return this.address;
+        }
+        public Builder(Country country, String city, String street, String number){
+            address.country = country;
+            address.city = city;
+            address.street = street;
+            address.number = number;
+        }
+        public Address.Builder withBlock(String block){
+            address.block=block;
+            return this;
+        }
+        public Address.Builder withEntrance (String entrance){
+            address.entrance=entrance;
+            return this;
+        }
+        public Address.Builder withFloor (Integer floor){
+            address.floor=floor;
+            return this;
+        }
+        public Address.Builder withApatmentNumber (Integer apatmentNumber){
+            address.apartmentNumber=apatmentNumber;
+            return this;
+        }
     }
 
     public Country getCountry() {
@@ -105,41 +155,21 @@ public class Address {
         this.apartmentNumber = apartmentNumber;
     }
 
-    protected String block;
-    protected String entrance;        // scara blocului
-    protected Integer floor;
-    protected Integer apartmentNumber;
 
-    public static class Builder{
-        private Address address = new Address();
 
-        public Address build(){
-            return this.address;
-        }
-        public Builder(String city, String street, String number){
-            address.city = city;
-            address.street = street;
-            address.number = number;
-        }
-        public Address.Builder withCounty(County county){
-            address.county=county;
-            return this;
-        }
-        public Address.Builder withBlock(String block){
-            address.block=block;
-            return this;
-        }
-        public Address.Builder withEntrance (String entrance){
-            address.entrance=entrance;
-            return this;
-        }
-        public Address.Builder withFloor (Integer floor){
-            address.floor=floor;
-            return this;
-        }
-        public Address.Builder withApatmentNumber (Integer apatmentNumber){
-            address.apartmentNumber=apatmentNumber;
-            return this;
-        }
+    @Override
+    public String toString() {
+        return "Address{" +
+                "country=" + country +
+                ", county=" + county +
+                ", city='" + city + '\'' +
+                ", sector=" + sector +
+                ", street='" + street + '\'' +
+                ", number='" + number + '\'' +
+                ", block='" + block + '\'' +
+                ", entrance='" + entrance + '\'' +
+                ", floor=" + floor +
+                ", apartmentNumber=" + apartmentNumber +
+                '}';
     }
 }

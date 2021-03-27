@@ -1,5 +1,6 @@
 package Classes;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class User {
     protected String name;
@@ -8,8 +9,17 @@ public class User {
     protected String email;
     protected String password;
     protected String phoneNumber;
-    protected Integer id;
+    protected Long id;
 
+
+
+
+    protected static AtomicLong userID = new AtomicLong(0);
+
+    protected static Long newID()
+    {
+        return userID.incrementAndGet();
+    }
 
     public static class Builder{
         private User user = new User();
@@ -41,12 +51,25 @@ public class User {
 
         public User build()
         {
+            this.user.id=newID();
             return this.user;
         }
     }
 
-    protected User(){
 
+    public User()
+    {
+        this.id=newID();
+    }
+    public User(String name, String surname, String username,
+                   String email, String password, String phoneNumber){
+        this.name=name;
+        this.surname=surname;
+        this.username=username;
+        this.email=email;
+        this.password=password;
+        this.phoneNumber=phoneNumber;
+        this.id = newID();
     }
 
     public String getName() {
@@ -67,27 +90,6 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                '}';
     }
 
     public String getPhoneNumber() {
@@ -118,4 +120,17 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

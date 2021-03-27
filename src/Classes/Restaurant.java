@@ -1,26 +1,63 @@
 package Classes;
 
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+
+import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Restaurant {
     private String name;
-    private String phoneNumber;
+    private List<String> phoneNumbers = new ArrayList<String>();
     private Address address;
-    private List<Review> reviews;
+    private List<Review> reviews = new ArrayList<Review>();
     private Owner owner;
-    private Menu menu;
+    private List<Menu> menus = new ArrayList<Menu>();
+    private RestaurantType restaurantType;
+    protected Long id;
 
-    @Override
-    public String toString() {
-        return "Restaurant{" +
-                "name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", address=" + address +
-                ", reviews=" + reviews +
-                ", owner=" + owner +
-                ", menu=" + menu +
-                '}';
+    private static AtomicLong restaurantID = new AtomicLong(0);
+
+    private static Long newID()
+    {
+        return restaurantID.incrementAndGet();
     }
+
+    Restaurant()
+    {
+        id = newID();
+    }
+
+
+    public static class Builder{
+        private Restaurant restaurant = new Restaurant();
+
+        public Builder(Owner owner, Address address, String name){
+            restaurant.owner = owner;
+            restaurant.address = address;
+            restaurant.name =name;
+        }
+        public Restaurant.Builder withPhoneNumber(String phoneNumber){
+            restaurant.phoneNumbers.add(phoneNumber);
+            return this;
+        }
+        public Restaurant.Builder withMenu(Menu menu){
+            restaurant.menus.add(menu);
+            return this;
+        }
+        public Restaurant.Builder withRestaurantType(RestaurantType restaurantType)
+        {
+            restaurant.restaurantType=restaurantType;
+            return this;
+        }
+
+        public Restaurant build()
+        {
+            return this.restaurant;
+        }
+    }
+
 
     public String getName() {
         return name;
@@ -30,12 +67,12 @@ public class Restaurant {
         this.name = name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public List<String> getPhoneNumbers() {
+        return phoneNumbers;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumbers(List<String> phoneNumber) {
+        this.phoneNumbers = phoneNumber;
     }
 
     public Address getAddress() {
@@ -62,17 +99,31 @@ public class Restaurant {
         this.owner = owner;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public List<Menu> getMenus() {
+        return menus;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setMenus(List<Menu> menu) {
+        this.menus = menu;
+    }
+
+    public RestaurantType getRestaurantType() {
+        return restaurantType;
+    }
+
+    public void setRestaurantType(RestaurantType restaurantType) {
+        this.restaurantType = restaurantType;
     }
 
     public Float getPriceForDish(Dish dish)
     {
-        return menu.getPrice(dish);
+        for( Menu menu : menus)
+        {
+            Float price = menu.getPrice(dish);
+            if(price!=null)
+                return price;
+        }
+        return null;
     }
 
     public void addReview(Review review)
@@ -80,4 +131,17 @@ public class Restaurant {
         reviews.add(review);
     }
 
+    @Override
+    public String toString() {
+        return "Restaurant{" +
+                "name='" + name + '\'' +
+                ", phoneNumbers=" + phoneNumbers +
+                ", address=" + address +
+                ", reviews=" + reviews +
+                ", owner=" + owner +
+                ", menus=" + menus +
+                ", restaurantType=" + restaurantType +
+                ", id=" + id +
+                '}';
+    }
 }
