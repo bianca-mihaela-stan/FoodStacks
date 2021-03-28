@@ -10,7 +10,7 @@ public class PlatformService {
     protected static Map<String, Client> clientsByEmail = new Hashtable<String, Client>();
     protected static Map<String, Owner> ownersByEmail = new Hashtable<String, Owner>();
     protected static Set<Driver> drivers = new HashSet<Driver>();
-    protected static Set<Restaurant> restaurants = new HashSet<Restaurant>();
+    protected static ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
 
 
     protected static User loggedInUser= null;
@@ -137,7 +137,7 @@ public class PlatformService {
 
     }
 
-    public void LogOut()
+    public static void LogOut()
     {
         if(loggedInUser==null)
         {
@@ -211,6 +211,39 @@ public class PlatformService {
             return ((Client) loggedInUser).getAddresses();
         }
         return null;
+    }
+
+    public static ArrayList<Restaurant> getClientRestaurants()
+    {
+        return restaurants;
+    }
+
+    public static int addRestaurantToFavourites(Restaurant restaurant)
+    {
+        if(loggedInUser!= null && loggedInUser instanceof Client)
+        {
+            HashMap<RestaurantType, List<Restaurant>> favourites = ((Client) loggedInUser).getFavourites();
+            if(favourites.get(restaurant.getRestaurantType())!= null && favourites.get(restaurant.getRestaurantType()).contains(restaurant) )
+            {
+                return 0; //restaurant alredy marked
+            }
+            else
+            {
+                favourites.put(restaurant.getRestaurantType(), null);
+                favourites.get(restaurant.getRestaurantType()).add(restaurant);
+                ((Client) loggedInUser).setFavourites(favourites);
+                return 1; // successfuly added
+            }
+        }
+        else
+        {
+            return 2; // you are not a client
+        }
+    }
+
+    public static List<Menu> getMenus(Restaurant restaurant)
+    {
+        return restaurant.getMenus();
     }
 
 

@@ -9,6 +9,7 @@ public class Client extends User {
     private List<Order> orders= new ArrayList<Order>();
     private HashMap<AddressIdentifier, Address> addresses = new HashMap<AddressIdentifier, Address>();
     private HashMap<RestaurantType, List<Restaurant>> favourites = new HashMap<RestaurantType, List<Restaurant>>();
+    private Cart cart;
 
     public Client()
     {
@@ -84,6 +85,22 @@ public class Client extends User {
 
     public void setAddresses(HashMap<AddressIdentifier, Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public HashMap<RestaurantType, List<Restaurant>> getFavourites() {
+        return favourites;
+    }
+
+    public void setFavourites(HashMap<RestaurantType, List<Restaurant>> favourites) {
+        this.favourites = favourites;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     @Override

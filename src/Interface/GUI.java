@@ -5,6 +5,9 @@ import Functionalities.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 public class GUI implements ActionListener {
@@ -18,19 +21,30 @@ public class GUI implements ActionListener {
     private static JButton registerButton;
     private static JButton registerAsOwnerButton;
     private static JButton logInButton;
+    private static JButton logOutButton;
+    private static JButton clientAccountButton;
+    private static JButton clientOrders;
+    private static JButton favourites;
+    private static JButton cart;
+    private static ArrayList<JButton> clientRestaurantsButtons;
 
     private static JLabel waringLabel;
     private static JPanel panel1;
+    private static JPanel panel2;
     private static JPanel clientMainPage;
     private static JFrame frame1;
+    private static JFrame frame2;
+    public static GUI gui = new GUI();
 
     public static void main(String[] args){
-        GUI gui = new GUI();
+
+
         panel1 = new JPanel();
         frame1 = new JFrame();
         frame1.setSize(1000, 1000);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame1.add(panel1);
+
 
         panel1.setLayout(null);
 
@@ -109,7 +123,8 @@ public class GUI implements ActionListener {
         }
         else if ( x== 3)
         {
-            frame1.remove(panel1);
+            frame1.setVisible(false);
+            setupClientFrame();
         }
     }
 
@@ -124,10 +139,12 @@ public class GUI implements ActionListener {
         {
             if(PlatformService.getLoggedInUser() instanceof Owner)
             {
+                frame1.setVisible(false);
                 setupOwnerFrame();
             }
             else if(PlatformService.getLoggedInUser() instanceof Client)
             {
+                frame1.setVisible(false);
                 setupClientFrame();
             }
         }
@@ -157,22 +174,71 @@ public class GUI implements ActionListener {
         }
         else if ( x== 3)
         {
+            frame1.setVisible(false);
             setupOwnerFrame();
         }
     }
 
-    private void setupOwnerFrame()
+    private static void setupOwnerFrame()
     {
         frame1.remove(panel1);
         clientMainPage = new JPanel();
         frame1.add(clientMainPage);
     }
 
-    private void setupClientFrame()
+    private static void setupClientFrame()
     {
-        frame1.remove(panel1);
-        clientMainPage = new JPanel();
-        frame1.add(clientMainPage);
+        panel2 = new JPanel();
+        frame2 = new JFrame();
+        frame2.setSize(1000, 1000);
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.add(panel2);
+
+        logOutButton = new JButton("Log out");
+        logOutButton.setBounds(900, 50, 100, 25);
+        logOutButton.setActionCommand("logOut");
+        logOutButton.addActionListener(gui);
+        panel2.add(logOutButton);
+
+        clientAccountButton= new JButton("Account");
+        clientAccountButton.setBounds(900, 80, 100, 25);
+        clientAccountButton.setActionCommand("clientAccount");
+        clientAccountButton.addActionListener(gui);
+        panel2.add(clientAccountButton);
+
+        clientOrders= new JButton("Orders");
+        clientOrders.setBounds(900, 110, 100, 25);
+        clientOrders.setActionCommand("clientOrders");
+        clientOrders.addActionListener(gui);
+        panel2.add(clientOrders);
+
+        favourites= new JButton("Favourites");
+        favourites.setBounds(900, 140, 100, 25);
+        favourites.setActionCommand("favourites");
+        favourites.addActionListener(gui);
+        panel2.add(favourites);
+
+        cart= new JButton("Cart");
+        cart.setBounds(900, 170, 100, 25);
+        cart.setActionCommand("favourites");
+        cart.addActionListener(gui);
+        panel2.add(cart);
+
+        Set<Restaurant> restaurants = PlatformService.getClientRestaurants();
+        int j=0;
+
+        for( Restaurant i : restaurants)
+        {
+            JButton button = new JButton(i.getName());
+            button.setBounds(10, 200, 100, 25);
+            button.setActionCommand();
+
+            clientRestaurantsButtons.add(new JButton(i.getName()));
+            clientRestaurantsButtons[j]
+        }
+
+        frame2.setVisible(true);
+
     }
 
 
