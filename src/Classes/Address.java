@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Address {
-    protected Country country;
     protected County county;
     protected String city;
     protected Integer sector;
@@ -28,12 +27,11 @@ public class Address {
         id=newID();
     }
 
-    Address(Country country, County county, String city, Integer sector,
+    Address(County county, String city, Integer sector,
             String street, String number, String block, String entrance,
             Integer floor, Integer apartmentNumber)
     {
         this.id = newID();
-        this.country=country;
         this.county=county;
         this.city=city;
         this.sector=sector;
@@ -51,8 +49,8 @@ public class Address {
         public Address build(){
             return this.address;
         }
-        public Builder(Country country, String city, String street, String number){
-            address.country = country;
+        public Builder(County county, String city, String street, String number){
+            address.county=county;
             address.city = city;
             address.street = street;
             address.number = number;
@@ -69,19 +67,12 @@ public class Address {
             address.floor=floor;
             return this;
         }
-        public Address.Builder withApatmentNumber (Integer apatmentNumber){
+        public Address.Builder withApartmentNumber (Integer apatmentNumber){
             address.apartmentNumber=apatmentNumber;
             return this;
         }
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
 
     public County getCounty() {
         return county;
@@ -160,7 +151,6 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "country=" + country +
                 ", county=" + county +
                 ", city='" + city + '\'' +
                 ", sector=" + sector +

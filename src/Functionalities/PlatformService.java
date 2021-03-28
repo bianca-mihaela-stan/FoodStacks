@@ -247,5 +247,10 @@ public class PlatformService {
     }
 
 
+    public static List<Restaurant> getRestaurants(Owner owner)
+    {
+        return owner.getRestaurants();
+    }
+
 
 }
