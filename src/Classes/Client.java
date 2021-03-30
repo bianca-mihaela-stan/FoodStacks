@@ -10,21 +10,39 @@ public class Client extends User {
     private HashMap<AddressIdentifier, Address> addresses = new HashMap<AddressIdentifier, Address>();
     private HashMap<RestaurantType, List<Restaurant>> favourites = new HashMap<RestaurantType, List<Restaurant>>();
     private Cart cart;
+    protected static Map<String, Client> clientsByEmail = new Hashtable<String, Client>();
 
     public Client()
     {
         super();
+        cart = new Cart();
     }
     public Client(String name, String surname, String username,
                 String email, String password, String phoneNumber){
         super(name, surname, username, email, password, phoneNumber);
     }
 
+//    public Client(Client otherClient) {
+//        name = otherClient.name;
+//        surname = otherClient.surname;
+//        username = otherClient.username;
+//        email = otherClient.email;
+//        password = otherClient.password;
+//        phoneNumber = otherClient.phoneNumber;
+//        id = newID();
+//        orders = otherClient.orders;
+//        addresses= otherClient.addresses;
+//        favourites = otherClient.favourites;
+//        cart = otherClient.cart;
+//    }
+
     public static class Builder {
 
         private Client client = new Client();
 
-        public Client build() {
+        public Client build()
+        {
+            this.client.cart = new Cart();
             return this.client;
         }
 
@@ -101,6 +119,14 @@ public class Client extends User {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public static Map<String, Client> getClientsByEmail() {
+        return clientsByEmail;
+    }
+
+    public static void setClientsByEmail(Map<String, Client> clientsByEmail) {
+        Client.clientsByEmail = clientsByEmail;
     }
 
     @Override

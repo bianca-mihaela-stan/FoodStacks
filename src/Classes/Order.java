@@ -9,10 +9,10 @@ import org.javatuples.Pair;
 
 public class Order {
     protected LocalDate date;
-    protected List<Triplet<Dish, Integer, Float>> dishesOrdered;
-    protected Float finalPrice;
+    protected List<Triplet<Dish, Integer, Double>> dishesOrdered = new ArrayList<Triplet<Dish, Integer, Double>>();
+    protected Double finalPrice = 0.0;
     protected Restaurant restaurant;
-    protected User user;
+    protected Client user;
     protected Long id;
 
 
@@ -23,44 +23,53 @@ public class Order {
         return userID.incrementAndGet();
     }
 
-    Order()
+    public Order()
     {
         this.date = LocalDate.now();
         this.id=newID();
     }
-    Order(LocalDate date, List<Triplet<Dish, Integer, Float>> dishesOrdered,
-          Float finalPrice, Restaurant restaurant, User user)
+    Order(LocalDate date, List<Triplet<Dish, Integer, Double>> dishesOrdered,
+          Double finalPrice, Restaurant restaurant, Client user)
     {
         this.date=date;
         this.dishesOrdered=dishesOrdered;
         this.finalPrice=finalPrice;
         this.restaurant=restaurant;
         this.user=user;
+        var orders = user.getOrders();
+        orders.add(this);
+        user.setOrders(orders);
         this.id=newID();
         this.sortDishes();
     }
 
     public static class Builder{
-        private Order order = new Order();
+        protected Order order = new Order();
 
-        public Builder(Restaurant restaurant, User user){
+
+        public Builder(Restaurant restaurant, Client user){
             order.restaurant = restaurant;
             order.user = user;
+            var orders = order.user.getOrders();
+            orders.add(order);
+            order.user.setOrders(orders);
         }
-        public Order.Builder withDish(Dish dish){
-            Triplet<Dish, Integer, Float> tr= new Triplet<Dish, Integer, Float> (dish, 1, null);
+        public Order.Builder withDish(Dish dish, Double price){
+            Triplet<Dish, Integer, Double> tr= new Triplet<Dish, Integer, Double> (dish, 1, price);
             order.dishesOrdered.add(tr);
+            order.finalPrice+=price;
             return this;
         }
-        public Order.Builder withDish(Dish dish, Integer number){
-            Triplet<Dish, Integer, Float> tr= new Triplet<Dish, Integer, Float> (dish, number, null);
+        public Order.Builder withDish(Dish dish, Integer number, Double price){
+            Triplet<Dish, Integer, Double> tr= new Triplet<Dish, Integer, Double> (dish, number, price);
             order.dishesOrdered.add(tr);
+            order.finalPrice+=price*number;
             return this;
         }
         public Order.Builder withDishes(List<Pair<Dish, Integer>> dishes){
             for (Pair<Dish, Integer> dish : dishes)
             {
-                Triplet<Dish, Integer, Float> tr= new Triplet<Dish, Integer, Float> (dish.getValue0(), dish.getValue1(), null);
+                Triplet<Dish, Integer, Double> tr= new Triplet<Dish, Integer, Double> (dish.getValue0(), dish.getValue1(), null);
                 order.dishesOrdered.add(tr);
             }
             return this;
@@ -68,7 +77,7 @@ public class Order {
 
         public Order build()
         {
-            for(Triplet<Dish, Integer, Float> elem : order.dishesOrdered)
+            for(Triplet<Dish, Integer, Double> elem : order.dishesOrdered)
             {
                 if(order.restaurant.getPriceForDish(elem.getValue0())!=null)
                 {
@@ -86,8 +95,8 @@ public class Order {
                 "date=" + date +
                 ", dishesOrdered=" + dishesOrdered +
                 ", finalPrice=" + finalPrice +
-                ", restaurant=" + restaurant +
-                ", user=" + user +
+                ", restaurant=" + restaurant.getName() +
+                ", user=" + user.getEmail() +
                 '}';
     }
 
@@ -99,21 +108,21 @@ public class Order {
         this.date = date;
     }
 
-    public List<Triplet<Dish, Integer, Float>> getDishesOrdered() {
+    public List<Triplet<Dish, Integer, Double>> getDishesOrdered() {
         this.sortDishes();
         return dishesOrdered;
     }
 
-    public void setDishesOrdered(List<Triplet<Dish, Integer, Float>> dishesOrdered) {
+    public void setDishesOrdered(List<Triplet<Dish, Integer, Double>> dishesOrdered) {
         this.dishesOrdered = dishesOrdered;
         this.sortDishes();
     }
 
-    public Float getFinalPrice() {
+    public Double getFinalPrice() {
         return finalPrice;
     }
 
-    public void setFinalPrice(Float finalPrice) {
+    public void setFinalPrice(Double finalPrice) {
         this.finalPrice = finalPrice;
     }
 
@@ -125,44 +134,19 @@ public class Order {
         this.restaurant = restaurant;
     }
 
-    public User getUser() {
+    public Client getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Client user) {
         this.user = user;
-    }
-
-
-    public void setPortionsForDish(Dish dish, Integer number)
-    {
-        for(Triplet<Dish, Integer, Float> elem : dishesOrdered)
-        {
-            if(dish==elem.getValue0())
-            {
-                finalPrice-=elem.getValue1()*elem.getValue2();
-                elem.setAt0(number);
-                finalPrice+=elem.getValue1()*number;
-            }
-        }
-    }
-    public void removeDish(Dish dish)
-    {
-        for(Triplet<Dish, Integer, Float> elem : dishesOrdered)
-        {
-            if(dish==elem.getValue0())
-            {
-                finalPrice-=elem.getValue1()*elem.getValue2();
-                dishesOrdered.remove(elem);
-            }
-        }
     }
 
     protected void sortDishes()
     {
-        dishesOrdered.sort(new Comparator<Triplet<Dish, Integer, Float>>() {
+        dishesOrdered.sort(new Comparator<Triplet<Dish, Integer, Double>>() {
             @Override
-            public int compare(Triplet<Dish, Integer, Float> o1, Triplet<Dish, Integer, Float> o2) {
+            public int compare(Triplet<Dish, Integer, Double> o1, Triplet<Dish, Integer, Double> o2) {
                 if(o1.getValue0().getName().compareTo(o2.getValue0().getName()) < 0){
                     return 1;
                 }

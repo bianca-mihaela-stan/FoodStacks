@@ -59,6 +59,10 @@ public class Address {
             address.block=block;
             return this;
         }
+        public Address.Builder withSector(Integer sector){
+            address.sector=sector;
+            return this;
+        }
         public Address.Builder withEntrance (String entrance){
             address.entrance=entrance;
             return this;

@@ -16,6 +16,7 @@ public class Restaurant {
     private List<Menu> menus = new ArrayList<Menu>();
     private RestaurantType restaurantType;
     protected Long id;
+    protected static ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
 
     private static AtomicLong restaurantID = new AtomicLong(0);
 
@@ -35,6 +36,14 @@ public class Restaurant {
 
         public Builder(Owner owner, Address address, String name){
             restaurant.owner = owner;
+            var restaurants = owner.getRestaurants();
+            restaurants.add(this.restaurant);
+            owner.setRestaurants(restaurants);
+            restaurant.address = address;
+            restaurant.name =name;
+        }
+
+        public Builder(Address address, String name){
             restaurant.address = address;
             restaurant.name =name;
         }
@@ -115,11 +124,19 @@ public class Restaurant {
         this.restaurantType = restaurantType;
     }
 
-    public Float getPriceForDish(Dish dish)
+    public static ArrayList<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public static void setRestaurants(ArrayList<Restaurant> restaurants) {
+        Restaurant.restaurants = restaurants;
+    }
+
+    public Double getPriceForDish(Dish dish)
     {
         for( Menu menu : menus)
         {
-            Float price = menu.getPrice(dish);
+            Double price = menu.getPrice(dish);
             if(price!=null)
                 return price;
         }

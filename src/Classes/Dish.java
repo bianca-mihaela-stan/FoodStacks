@@ -6,10 +6,46 @@ import org.javatuples.Pair;
 
 public class Dish {
     private String name;
-    private HashMap<String, Pair<Integer , Quantity>> recipe;
-    private List<Review> reviews;
+    private HashMap<String, Pair<Integer , Quantity>> recipe= new HashMap<String, Pair<Integer , Quantity>>();
+    private List<Review> reviews = new ArrayList<Review>();
+
+    public static class Builder {
+
+        private Dish dish = new Dish();
+
+        public Dish build() {
+            return this.dish;
+        }
+
+        public Builder(String name) {
+            dish.name = name;
+        }
+
+        public Dish.Builder withRecipe(HashMap<String, Pair<Integer , Quantity>> recipe) {
+            dish.recipe = recipe;
+            return this;
+        }
 
 
+        public Dish.Builder withIngredient(String name, Integer number, Quantity quantity) {
+            dish.recipe.put(name, new Pair<Integer, Quantity>(number, quantity));
+            return this;
+        }
+
+        public Dish.Builder withReviews(List<Review> reviews) {
+            dish.reviews = reviews;
+            return this;
+        }
+
+        public Dish.Builder withReview(Review review) {
+            dish.reviews.add(review);
+            return this;
+        }
+
+    }
+    
+    
+    
     public String getName() {
         return name;
     }
@@ -17,7 +53,7 @@ public class Dish {
     @Override
     public String toString() {
         return "Dish{" +
-                "name='" + name + '\'' +
+                "name='" + name +
                 ", recipe=" + recipe +
                 ", reviews=" + reviews +
                 '}';
@@ -61,5 +97,14 @@ public class Dish {
     public void addReview(Review review)
     {
         reviews.add(review);
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if(this == o) return true;
+        if (!(o instanceof Dish)) return false;
+        Dish dish = (Dish) o;
+        return Objects.equals(name, dish.getName()) && Objects.equals(recipe, dish.getRecipe()) && Objects.equals(reviews, dish.getReviews());
     }
 }

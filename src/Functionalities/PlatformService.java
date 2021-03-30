@@ -1,25 +1,24 @@
 package Functionalities;
 import Classes.*;
+import org.javatuples.Pair;
+
 import java.util.*;
 
 import java.util.Hashtable;
 import java.util.stream.Stream;
 
+import static java.lang.Integer.parseInt;
+
 public class PlatformService {
     protected static PlatformService instance;
-    protected static Map<String, Client> clientsByEmail = new Hashtable<String, Client>();
-    protected static Map<String, Owner> ownersByEmail = new Hashtable<String, Owner>();
-    protected static Set<Driver> drivers = new HashSet<Driver>();
-    protected static ArrayList<Restaurant> restaurants = new ArrayList<Restaurant>();
-
 
     protected static User loggedInUser= null;
+    protected static Scanner scanner = new Scanner(System.in);
 
-    protected Scanner scanner = new Scanner(System.in);
 
     protected PlatformService()
     {
-        System.out.println("Welcome!");
+
     }
 
     public static PlatformService getInstance()
@@ -31,7 +30,7 @@ public class PlatformService {
         return instance;
     }
 
-    public static User getLoggedInUser() {
+    public User getLoggedInUser() {
         return loggedInUser;
     }
 
@@ -39,105 +38,115 @@ public class PlatformService {
         PlatformService.loggedInUser = loggedInUser;
     }
 
-    protected static Boolean validateEmail(String email)
+    protected Boolean validateEmail(String email)
     {
         return email.matches("^(.+)@(.+)$");
     }
 
-    protected static Boolean validatePassword(String password)
+    protected Boolean validatePassword(String password)
     {
         return  password.matches(".*[A-Z]+.*") &&
                 password.matches(".*[a-z]+.*") &&
                 password.matches(".*[0-9]+.*");
     }
 
-    public static int Register(String email, String password)
+    public int getRandomNumber(int min, int max)
     {
-
-        if(clientsByEmail.containsKey(email))
-        {
-            return 0; //"This email already has an account! Press :q to exit.";
-        }
-
-        if(validateEmail(email)==false)
-        {
-            return 1; //"You need to type a valid email! Press :q to exit.");
-        }
-
-
-        System.out.println("at least 8 characters\n" +
-                "at least 1 uppercase\n" +
-                "at least 1 lowercase\n" +
-                "at least 1 number\n");
-        System.out.println("Password: ");
-
-        if(validatePassword(password)== false){
-            return 2;
-//            system.out.println("Password must have: \n" +
-//            "at least 8 characters\n" +
-//            "at least 1 uppercase\n" +
-//            "at least 1 lowercase\n" +
-//            "at least 1 number\n");
-        }
-        else
-        {
-            System.out.println("Successfully registered!");
-            Client new_client = new Client.Builder(email, password).build();
-            clientsByEmail.put(email, new_client);
-            loggedInUser=new_client;
-            return 3;//Successfully registered!
-        }
-
+        return(int) ((Math.random()*(max-min)) + min);
     }
 
-    public static  int RegisterAsOwner(String email, String password)
+    public String getCategoryOf(Menu menu, Dish dish)
     {
-        if(ownersByEmail.containsKey(email))
+        Iterator<String> it = menu.getElements().keySet().iterator();
+        while(it.hasNext())
         {
-            return 0; //("This email already has an account! Press :q to exit.");
+            for(Pair<Dish, Double> elem : menu.getElements().get(it.next()))
+            {
+                if(dish.equals(elem.getValue0()))
+                {
+                    return it.next();
+                }
+            }
         }
-
-        if(!validateEmail(email))
-        {
-            return 1;//"You need to type a valid email! Press :q to exit.");
-        }
-
-        if(!validatePassword(password)){
-            return 2;
-            //
-        }
-
-        System.out.println("Successfully logged in!");
-        Owner new_owner = new Owner.Builder(email, password).build();
-        ownersByEmail.put(email, new_owner);
-        loggedInUser=new_owner;
-
-        return 3;
+        return null;
     }
 
 
-    public static int LogIn(String email, String password)
+    public boolean assignDelivery(Delivery delivery)
+    {
+        var drivers = Driver.getDrivers();
+        if (drivers.size() > 0) {
+            int r = getRandomNumber(0, drivers.size());
+            System.out.println(r);
+            var deliveries = drivers.get(r).getDeliveries();
+            if (deliveries.get(delivery.getDate()) != null) {
+                var today = deliveries.get(delivery.getDate());
+                today.add(delivery);
+                deliveries.put(delivery.getDate(), today);
+                drivers.get(r).setDeliveries(deliveries);
+            } else {
+                var today = new ArrayList<Delivery>();
+                today.add(delivery);
+                deliveries.put(delivery.getDate(), today);
+                drivers.get(r).setDeliveries(deliveries);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public Double getPrice(Menu menu, Dish dish)
+    {
+        List<Pair<Dish, Double>> list = menu.getElements().get(getCategoryOf(menu, dish));
+        for (Pair<Dish, Double> elem : list)
+        {
+            if(elem.getValue0()==dish)
+            {
+                return elem.getValue1();
+            }
+        }
+        return null;
+    }
+
+
+    public void LogIn(String email, String password)
     {
         if(loggedInUser!=null)
         {
-            return 0;//"You are already logged in!");
+            System.out.println("You are already logged in!");
         }
         else {
 
-            if(clientsByEmail.get(email)!=null && clientsByEmail.get(email).getPassword()==password){
-                loggedInUser=clientsByEmail.get(email);
-                return 1;//suceessfully signed in
+            if(Client.getClientsByEmail().get(email)!=null && Client.getClientsByEmail().get(email).getPassword().equals(password)){
+                loggedInUser=Client.getClientsByEmail().get(email);
+                System.out.println("Successfully logged in!");
+                return;
+            }
+            else if(Owner.getOwnersByEmail().get(email)!=null && Owner.getOwnersByEmail().get(email).getPassword().equals(password))
+            {
+                loggedInUser = Owner.getOwnersByEmail().get(email);
+                System.out.println("Successfully logged in!");
+                return;
             }
             else
             {
-                return 2; //("Email or password is incorrect!");
+                for(var driver : Driver.getDrivers())
+                {
+                    if(driver.getEmail().equals(email) && driver.getPassword().equals(password))
+                    {
+                        loggedInUser = driver;
+                        System.out.println("Successfully logged in!");
+                        return;
+                    }
+                }
             }
-
+            System.out.println("Email or password is incorrect!");
+            //System.out.println(Owner.getOwnersByEmail().get(email));
         }
 
     }
 
-    public static void LogOut()
+    public void LogOut()
     {
         if(loggedInUser==null)
         {
@@ -151,95 +160,29 @@ public class PlatformService {
 
     }
 
-    public void editAddress(AddressIdentifier addressIdentifier, Address address)
+    public boolean verifyDishInCategoryInMenu(Dish dish, String category, Menu menu)
     {
-        if(loggedInUser!=null && loggedInUser instanceof Client)
+        var elements = menu.getElements();
+        if(!elements.containsKey(category))
         {
-            HashMap<AddressIdentifier, Address> addresses = ((Client) loggedInUser).getAddresses();
-            if(addresses.containsKey(addressIdentifier))
-            {
-                addresses.put(addressIdentifier, address);
-            }
-            else
-            {
-                System.out.println("Address identifier does not exist!");
-            }
-        }
-    }
-
-    public void addAddress(Address address, AddressIdentifier addressIdentifier)
-    {
-        if(loggedInUser!=null && loggedInUser instanceof Client)
-        {
-            HashMap<AddressIdentifier, Address> addresses = ((Client) loggedInUser).getAddresses();
-            if(addresses.containsKey(addressIdentifier))
-            {
-                System.out.println("The address identifier alredy has an address. Do you wish to modify it? y/n");
-                if(scanner.next()=="y")
-                {
-                    editAddress(addressIdentifier, address);
-                }
-                else
-                {
-                    return;
-                }
-            }
-            else
-            {
-                addresses.put(addressIdentifier, address);
-                System.out.println("Address was successfully added!");
-            }
-        }
-    }
-
-    public void deleteAddress(Address addressIdentifier)
-    {
-        if(loggedInUser!=null && loggedInUser instanceof Client)
-        {
-            HashMap<AddressIdentifier, Address> addresses = ((Client) loggedInUser).getAddresses();
-            addresses.remove(addressIdentifier);
-            System.out.println("Address was successfully removed!");
-        }
-    }
-
-
-
-    public HashMap<AddressIdentifier, Address> getAddresses()
-    {
-        if(loggedInUser!=null && loggedInUser instanceof Client)
-        {
-            return ((Client) loggedInUser).getAddresses();
-        }
-        return null;
-    }
-
-    public static ArrayList<Restaurant> getClientRestaurants()
-    {
-        return restaurants;
-    }
-
-    public static int addRestaurantToFavourites(Restaurant restaurant)
-    {
-        if(loggedInUser!= null && loggedInUser instanceof Client)
-        {
-            HashMap<RestaurantType, List<Restaurant>> favourites = ((Client) loggedInUser).getFavourites();
-            if(favourites.get(restaurant.getRestaurantType())!= null && favourites.get(restaurant.getRestaurantType()).contains(restaurant) )
-            {
-                return 0; //restaurant alredy marked
-            }
-            else
-            {
-                favourites.put(restaurant.getRestaurantType(), null);
-                favourites.get(restaurant.getRestaurantType()).add(restaurant);
-                ((Client) loggedInUser).setFavourites(favourites);
-                return 1; // successfuly added
-            }
+            System.out.println("This category is not in this menu!");
+            return false;
         }
         else
         {
-            return 2; // you are not a client
+            for(var elem : elements.get(category))
+            {
+                if(elem.getValue0()==dish)
+                {
+                    return true;
+                }
+            }
+            System.out.println("This dish is not in this category!");
+            return false;
         }
     }
+
+
 
     public static List<Menu> getMenus(Restaurant restaurant)
     {
@@ -252,5 +195,33 @@ public class PlatformService {
         return owner.getRestaurants();
     }
 
+    public static void setInstance(PlatformService instance) {
+        PlatformService.instance = instance;
+    }
+
+    public static Map<String, Client> getClientsByEmail() {
+        return Client.getClientsByEmail();
+    }
+
+    public void setClientsByEmail(Map<String, Client> clientsByEmail) {
+        Client.setClientsByEmail(clientsByEmail);
+    }
+
+    public static Map<String, Owner> getOwnersByEmail() {
+        return Owner.getOwnersByEmail();
+    }
+
+    public static void setOwnersByEmail(Map<String, Owner> ownersByEmail) {
+        Owner.setOwnersByEmail(ownersByEmail);
+    }
+
+
+    public static ArrayList<Restaurant> getRestaurants() {
+        return Restaurant.getRestaurants();
+    }
+
+    public static void setRestaurants(ArrayList<Restaurant> restaurants) {
+        Restaurant.setRestaurants(restaurants);
+    }
 
 }

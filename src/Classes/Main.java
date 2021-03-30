@@ -2,7 +2,9 @@ package Classes;
 
 
 //import Functionalities.OwnerService;
-import Functionalities.PlatformService;
+//import Functionalities.PlatformService;
+//import Functionalities.RestaurantService;
+import Functionalities.*;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static java.lang.Integer.parseInt;
+import static java.lang.Integer.*;
 import static java.lang.String.valueOf;
 
 public class Main {
@@ -18,257 +20,186 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        unregistered();
+
+        PlatformService platformService = PlatformService.getInstance();
+        AddressService addressService = AddressService.getInstance();
+        CartService cartService = CartService.getInstance();
+        ClientService clientService = ClientService.getInstance();
+        DeliveryService deliveryService = DeliveryService.getInstance();
+        DishService dishService = DishService.getInstance();
+        DriverService driverService= DriverService.getInstance();
+        MenuService menuService = MenuService.getInstance();
+        OrderService orderService = OrderService.getInstance();
+        OwnerService ownerService = OwnerService.getInstance();
+        RestaurantService restaurantService = RestaurantService.getInstance();
 
 
-    }
+        // Creating 3 addresses.
+        Address address1 = new Address.Builder(County.Dambovita, "Targoviste", "A", "25A").build();
+        Address address2 = new Address.Builder(County.Bucuresti, "Bucuresti", "Mar", "105A").withSector(1).build();
+        Address address3 = new Address.Builder(County.Brasov, "Brasov", "Raton", "101").withBlock("19").withFloor(7).build();
 
-    public static void unregistered() {
-        System.out.println("Options:\n");
-        System.out.println("1. Register as client\n");
-        System.out.println("2. Register as owner\n");
-        System.out.println("3. Register as driver\n");
-        System.out.println("4. Log in\n");
-        System.out.println("5. Close program\n");
-        System.out.println("Introduce option: ");
-        String option = scanner.next();
+        // Creating 4 dishes.
+        Dish dish1 = new Dish.Builder("soup").withIngredient("carrot", 50, Quantity.g).withIngredient("water", 400, Quantity.ml).build();
+        Dish dish2 = new Dish.Builder("cake").withIngredient("chocolate", 100, Quantity.g).withIngredient("cream", 100, Quantity.g).build();
+        Dish dish3 = new Dish.Builder("fries").withIngredient("carrots", 200, Quantity.g).withIngredient("spices", 5, Quantity.g).build();
+        Dish dish4 = new Dish.Builder("Pina Colada").withIngredient("alcohol", 20, Quantity.ml).withIngredient("cream", 200, Quantity.ml).build();
+        Dish dish5 = new Dish.Builder("Cappuccino").withIngredient("coffee", 200, Quantity.ml).withIngredient("cream", 200, Quantity.ml).build();
 
-        switch (option) {
-            case "1":
-                registerAsClient();
-            case "2":
+        // Creating 2 menus.
+        Menu menu1 = new Menu.Builder("Drinks").withCategory("Alcoholic")
+                .withCategory("Nonalcoholic")
+                .withCategory("Coffee")
+                    .withElement("Alcoholic", dish4, 20.0).build();
+        Menu menu2 = new Menu.Builder("Food")
+                .withCategory("Soups")
+                    .withElement("Soups", dish1, 15.5)
+                .withCategory("Sides")
+                    .withElement("Sides", dish3, 9.9)
+                .withCategory("Dessert")
+                    .withElement("Dessert", dish2, 18.9).build();
+        Menu menu3 = new Menu.Builder("Drinks")
+                .withCategory("Coffee").build();
 
-            case "3":
+        // Creating an owner.
+        Owner owner1 = new Owner.Builder("owner1@email.com", "123abcABC")
+                .withPhoneNumber("0723456789")
+                .withName("Mihai")
+                .withSurname("Andrei").build();
 
-            case "4":
+        // Creating a restaurant.
+        Restaurant restaurant1 = new Restaurant.Builder(owner1, address1, "Happy cheese")
+                .withRestaurantType(RestaurantType.Family_Style)
+                .withMenu(menu1).withMenu(menu2)
+                .withPhoneNumber("0712345678").build();
 
-            case "5":
+        //Creating a client.
+        Client client1 = new Client.Builder("client1@email.com", "aB1").withPhoneNumber("0798765432").build();
 
-            default:
-                System.out.println("Reintroduce option.\n ");
-                unregistered();
-        }
-    }
+        //Creating a driver.
+        Driver driver1 = new Driver.Builder("driver1@email.com", "aB1").withPhoneNumber("0767823456").build();
 
-    public static void registerAsClient() {
-        System.out.println("Email: ");
-        String email = scanner.next();
-        System.out.println("\nPassword: ");
-        String password = scanner.next();
-        int x = PlatformService.Register(email, password);
-        switch (x) {
-            case 0:
-                System.out.println("This email already has an account!");
-            case 1:
-                System.out.println("You need to type a valid email!");
-            case 2:
-                System.out.println("Password must have at least one uppercase, one lowercase and one number");
-            case 3:
-                System.out.println("Successfully registered!");
-                loggedInAsClient();
-                return;
-            default:
-                System.out.println("Something went wrong, please reintroduce data.");
-        }
-        registerAsClient();
-    }
+        System.out.println("Registering a client:\n");
+        clientService = ClientService.getInstance();
+        clientService.Register("client2@emial.com", "A17a");
 
-    public static void loggedInAsClient() {
-        System.out.println("Options:\n");
-        System.out.println("1. Show restaurants\n");
-        System.out.println("2. Search for restaurant\n");
-        System.out.println("3. Filter restaurants\n");
-        System.out.println("4. Log out\n");
-        System.out.println("5. Account\n");
-        System.out.println("6. Orders\n");
-        System.out.println("7. Favourites\n");
-        System.out.println("8. Cart\n");
-        System.out.println("9: Close program");
-        System.out.println("Introduce option: ");
+        // Adding an address for this client.
+        clientService.addAddress(address2, AddressIdentifier.Home);
 
-        String option = scanner.next();
+        // Adding things to cart.
+        clientService.addToCart(restaurant1, menu2, "Dessert", dish2, 2);
 
-        switch (option) {
-            case "1":
-                showRestaurantsAsClient();
-            case "2":
+        // Attempting to add another item to cart.
+        // It's not added because the dish does belong in that category.
+        clientService.addToCart(restaurant1, menu1, "Alcoholic", dish3, 2);
 
-            case "3":
+        // Attempting to add another item to cart.
+        // It's not added because the category has a typo.
+        clientService.addToCart(restaurant1, menu1, "Alcohoic", dish3, 2);
 
-            case "4":
+        System.out.println("Seeing the cart after attempting to add the elements: \n");
+        System.out.println(((Client) clientService.getLoggedInUser()).getCart());
 
-            case "5":
+        // Removing the portions from cart,
+        clientService.removeFromCart(restaurant1, dish2, 2 );
 
-            default:
+        System.out.println("Seeing the effects removing the portions from the cart: \n");
+        System.out.println(((Client) clientService.getLoggedInUser()).getCart());
 
-        }
-    }
+        // Creating a new order for this client.
+        Order order1 = new Order.Builder(restaurant1, client1).withDish(dish1, 10.0).build();
 
-    public static void showRestaurantsAsClient() {
-        ArrayList<Restaurant> restaurants = PlatformService.getClientRestaurants();
-        Integer j = 1;
-        for (Restaurant restaurant : restaurants) {
-            System.out.println(j + ": " + restaurant + "\n");
-            j++;
-        }
-        System.out.println("Options:\n");
-        System.out.println("1. Show a restaurant\n");
-        System.out.println("2. Go back\n");
-        System.out.println("3: Log out");
-        System.out.println("4: Close program");
-        System.out.println("Introduce option: ");
+        System.out.println("Seeing the new order created: ");
+        System.out.println(order1);
 
-        String option = scanner.next();
+        // Changing the number of portions in the order.
+        orderService.setPortionsForDish(order1, dish1, 2);
 
-        switch (option) {
-            case "1":
-                System.out.println("Which restaurant do you want to show? Introduce its number.\n");
-                String whichRestaurant = scanner.next();
-                if (Integer.valueOf(whichRestaurant).compareTo(j) < 0) {
-                    showRestaurant(restaurants.get(Integer.valueOf(whichRestaurant)));
-                }
-            case "2":
+        System.out.println("Observing how the portions changed");
+        System.out.println(order1);
 
-            case "3":
+        // Adding something to cart.
+        clientService.addToCart(restaurant1, menu2, "Soups", dish1, 2);
 
-            case "4":
+        // Attempting to finish the delivery to home.
+        clientService.finishOrder();
 
-            case "5":
+        System.out.println("Observing that the delivery was added.");
+        System.out.println(((Client) clientService.getLoggedInUser()).getOrders());
 
-            default:
+        // Adding the restaurant to favourites.
+        clientService.addRestaurantToFavourites(restaurant1);
 
-        }
-    }
+        // Observing that it has been added.
+        System.out.println(((Client) clientService.getLoggedInUser()).getFavourites());
 
-    public static void showRestaurant(Restaurant restaurant)
-    {
-        System.out.println(restaurant);
-        System.out.println("Options:\n");
-        System.out.println("1. Add to favourites\n");
-        System.out.println("2. Show menus\n");
-        System.out.println("3: Log out\n");
-        System.out.println("4: Go back \n");
-        System.out.println("5: Close program \n");
-        System.out.println("Introduce option: ");
+        System.out.println("\nThe cart of the current user before heading for delivery: \n");
+        System.out.println(((Client) clientService.getLoggedInUser()).getCart());
 
-        String option = scanner.next();
+        clientService.addToCart(restaurant1, menu2, "Sides", dish3, 1);
 
-        switch (option) {
-            case "1":
-                User user = PlatformService.getLoggedInUser();
-                int x = PlatformService.addRestaurantToFavourites(restaurant);
-                switch(x)
-                {
-                    case 0:
-                        System.out.println("You already marked this restaurant as favourite.");
-                    case 1:
-                        System.out.println("Successfully added as favourite!");
-                    case 2:
-                        System.out.println("You are not a client.");
-                }
-            case "2":
-                showMenusAsClient(restaurant);
-            case "3":
-                PlatformService.LogOut();
-                unregistered();
-            case "4":
-                showRestaurantsAsClient();
-            case "5":
-                return;
-            default:
-                System.out.println("Something went wrong.");
-                showRestaurant(restaurant);
-        }
-    }
+        clientService.finishDelivery(AddressIdentifier.Home);
 
-    public static void showMenusAsClient(Restaurant restaurant)
-    {
-        List<Menu> menus = PlatformService.getMenus(restaurant);
+        cartService.removeFromCart(restaurant1, dish4);
 
-        Integer j = 1;
-        for( Menu menu : menus)
-        {
-            System.out.println(j + ": " + menu + "\n");
-            j++;
-        }
+        // Logging out to log in as owner.
+        platformService.LogOut();
 
-        System.out.println("Options:\n");
-        System.out.println("1. Pick a menu\n");
-        System.out.println("2: Log out\n");
-        System.out.println("3: Go back \n");
-        System.out.println("4: Close program \n");
-        System.out.println("Introduce option: ");
+        // Logging in as owner.
+        ownerService.LogIn("owner1@email.com", "123abcABC");
 
-        String option = scanner.next();
+        // Creating a new restaurant to add to the owner's list.
+        Restaurant restaurant2 = new Restaurant.Builder(address3,"Coffee <3").build();
 
-        switch (option) {
-            case "1":
-                System.out.println("Which menu do you wish to show? Introduce its number.\n");
-                String whichMenu = scanner.next();
-                if (Integer.valueOf(whichMenu).compareTo(j) < 0) {
-                    showMenuAsClient(menus.get(Integer.valueOf(whichMenu)));
-                }
-            case "2":
-                showMenusAsClient(restaurant);
-            case "3":
-                PlatformService.LogOut();
-                unregistered();
-            case "4":
-                showRestaurantsAsClient();
-            case "5":
-                return;
-            default:
-                System.out.println("Something went wrong.");
-                showRestaurant(restaurant);
-        }
+        // Adding the restaurant.
+        ownerService.addRestaurant(restaurant2);
+
+        System.out.println(((Owner)(platformService.getLoggedInUser())).getRestaurants());
+
+        restaurantService.addMenu(menu3, restaurant2);
+
+        menuService.addDish(restaurant2, menu3, "Coffee", dish5, 11.5);
+
+        menuService.addCategory(restaurant2, menu3, "Summer drinks");
+
+        dishService.editNumberQuantity(restaurant2, dish5, "coffee", 220);
+
+        dishService.addIngredientToDish(restaurant2, dish5, "milk", 20, Quantity.ml);
+
+        System.out.println(restaurant2.getMenus());
+
+        // Logging out to log in as a driver.
+        ownerService.LogOut();
+
+        platformService.LogIn("driver1@email.com", "aB1");
+
+        driverService.showDeliveriesToday();
+
+
+
+
+
+
+
+
+
+
+//        System.out.println(driver1);
+//        System.out.println(address1);
+//        System.out.println(address2);
+//        System.out.println(address3);
+//        System.out.println(menu1);
+//        System.out.println(menu2);
+//        System.out.println(client1);
+//        System.out.println(owner1);
     }
 
 
-    public static void showMenuAsClient(Menu menu)
-    {
-        Integer j =1;
-        List<Pair<Dish, Float>> h = new ArrayList<Pair<Dish, Float>>();
-        for(String category : menu.elements.keySet())
-        {
-            System.out.println(category + "\n");
-            for(Pair<Dish, Float> dish : menu.elements.get(category))
-            {
-                System.out.println(j + ": " +dish.getValue0() + "\n");
-                System.out.println("---------------------------------------------------"+ dish.getValue1() );
-                h.add(dish);
-                j++;
-            }
-        }
-        System.out.println("Options:\n");
-        System.out.println("1. Pick a dish\n");
-        System.out.println("2: Log out\n");
-        System.out.println("3: Go back \n");
-        System.out.println("4: Close program \n");
-        System.out.println("Introduce option: ");
 
-        String option = scanner.next();
 
-        switch (option) {
-            case "1":
-                System.out.println("Which dish do you wish to pick? Introduce its number.\n");
-                String whichDish = scanner.next();
-                if (Integer.valueOf(whichDish).compareTo(j) < 0) {
-                    //pickDishAsClient(h.get(Integer.valueOf(whichDish)));
-                }
-            case "2":
-                PlatformService.LogOut();
-                unregistered();
-            case "3":
 
-            case "4":
-                return;
 
-            default:
-                System.out.println("Something went wrong.");
-                showMenuAsClient(menu);
-        }
 
-    }
 
 //    public static void pickDishAsClient(Dish dish)
 //    {
@@ -299,153 +230,13 @@ public class Main {
 //    }
 
 
-    public static void registerAsOwner()
-    {
-        System.out.println("Email: ");
-        String email = scanner.next();
-        System.out.println("\nPassword: ");
-        String password = scanner.next();
-        int x = PlatformService.RegisterAsOwner(email, password);
-        switch (x) {
-            case 0:
-                System.out.println("This email already has an account!");
-            case 1:
-                System.out.println("You need to type a valid email!");
-            case 2:
-                System.out.println("Password must have at least one uppercase, one lowercase and one number");
-            case 3:
-                System.out.println("Successfully registered!");
-                loggedInAsOwner();
-                return;
-            default:
-                System.out.println("Something went wrong, please reintroduce data.");
-        }
-        registerAsClient();
-    }
 
-    public static void loggedInAsOwner()
-    {
-        System.out.println("Options:\n");
-        System.out.println("1. Show my restaurants\n");
-        System.out.println("2. Add a restaurant\n");
-        System.out.println("3. Log out\n");
-        System.out.println("4. Account\n");
-        System.out.println("5. Log out\n");
-        System.out.println("6: Close program");
-        System.out.println("Introduce option: ");
 
-        String option = scanner.next();
 
-        switch (option) {
-            case "1":
-                showRestaurantsAsOwner();
-            case "2":
-                addRestaurant();
-            case "3":
 
-            case "4":
 
-            case "5":
 
-            default:
 
-        }
-    }
-
-    public static void showRestaurantsAsOwner()
-    {
-        Owner owner = (Owner) PlatformService.getLoggedInUser();
-        List<Restaurant> restaurants = PlatformService.getRestaurants(owner);
-        Integer j = 1;
-        for (Restaurant restaurant : restaurants) {
-            System.out.println(j + ": " + restaurant + "\n");
-            j++;
-        }
-        System.out.println("Options:\n");
-        System.out.println("1. Show a restaurant\n");
-        System.out.println("2. Go back\n");
-        System.out.println("3: Log out");
-        System.out.println("4: Close program");
-        System.out.println("Introduce option: ");
-
-        String option = scanner.next();
-
-        switch (option) {
-            case "1":
-                System.out.println("Which restaurant do you want to show? Introduce its number.\n");
-                String whichRestaurant = scanner.next();
-                if (Integer.valueOf(whichRestaurant).compareTo(j) < 0) {
-                    showRestaurant(restaurants.get(Integer.valueOf(whichRestaurant)));
-                }
-            case "2":
-
-            case "3":
-
-            case "4":
-
-            case "5":
-
-            default:
-
-        }
-    }
-
-    public static void addRestaurant()
-    {
-        System.out.println("The name of the restaurant: ");
-        String name = scanner.next();
-        Address address = addressFromInput();
-
-    }
-
-    public static Address addressFromInput()
-    {
-        System.out.println("Pick one county: \n");
-        County[] counties = County.values();
-        for(int i=0; i<counties.length; i++)
-        {
-            System.out.println(i + ": " + counties[i] + "\n");
-        }
-        System.out.println("Pick county (insert its number): ");
-        String whichCounty = scanner.next();
-        County county = counties[parseInt(whichCounty)];
-        System.out.println("Insert city: ");
-        String city = scanner.next();
-        System.out.println("Insert street: ");
-        String street = scanner.next();
-        System.out.println("Insert street number: ");
-        String number = scanner.next();
-        System.out.println("Insert block: (insert :s to skip) ");
-        String block = scanner.next();
-        if(block == ":s")
-        {
-            block = null;
-        }
-        System.out.println("Insert entrance: (insert :s to skip) ");
-        String entrance = scanner.next();
-        if(entrance == ":s")
-        {
-            entrance = null;
-        }
-
-        System.out.println("Insert floor: (insert :s to skip) ");
-        var floor = scanner.next();
-        if(floor == ":s")
-        {
-            floor = null;
-        }
-        Integer floorNumber = Integer.valueOf(floor);
-
-        System.out.println("Insert apartment number: (insert :s to skip) ");
-        String apartment= scanner.next();
-        if(apartment == ":s")
-        {
-            apartment = null;
-        }
-        Integer apartmentNumber = Integer.valueOf(apartment);
-
-        return new Address.Builder(county, city, street, number).withBlock(block).withEntrance(entrance).withFloor(floorNumber).withApartmentNumber(apartmentNumber).build();
-    }
 
 
 }

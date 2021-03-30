@@ -10,7 +10,6 @@ public class UserAddress extends Address{
     @Override
     public String toString() {
         return "UserAddress{" +
-                "country=" + country +
                 ", county=" + county +
                 ", city='" + city + '\'' +
                 ", sector=" + sector +

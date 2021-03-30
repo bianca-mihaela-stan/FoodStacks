@@ -12,8 +12,6 @@ public class User {
     protected Long id;
 
 
-
-
     protected static AtomicLong userID = new AtomicLong(0);
 
     protected static Long newID()

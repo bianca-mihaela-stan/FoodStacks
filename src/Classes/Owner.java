@@ -6,6 +6,7 @@ import java.util.*;
 
 public class Owner extends User{
     List<Restaurant> restaurants= new ArrayList<Restaurant>();
+    protected static Map<String, Owner> ownersByEmail = new Hashtable<String, Owner>();
 
     public Owner()
     {
@@ -18,40 +19,43 @@ public class Owner extends User{
 
     public static class Builder {
 
-        private Owner Owner = new Owner();
+        private Owner owner = new Owner();
 
         public Owner build() {
-            return this.Owner;
+            return this.owner;
         }
 
         public Builder(String email, String password) {
-            Owner.email = email;
-            Owner.password = password;
+            owner.email = email;
+            owner.password = password;
+            var owners = getOwnersByEmail();
+            owners.put(email, this.owner);
+            setOwnersByEmail(owners);
         }
 
         public Owner.Builder withUsername(String username) {
-            Owner.username = username;
+            owner.username = username;
             return this;
         }
 
         public Owner.Builder withName(String name) {
-            Owner.name = name;
+            owner.name = name;
             return this;
         }
 
         public Owner.Builder withSurname(String surname) {
-            Owner.surname = surname;
+            owner.surname = surname;
             return this;
         }
 
         public Owner.Builder withPhoneNumber(String phoneNumber) {
-            Owner.phoneNumber = phoneNumber;
+            owner.phoneNumber = phoneNumber;
             return this;
         }
 
         public Owner.Builder withRestaurants(List<Restaurant> restaurants)
         {
-            Owner.restaurants=restaurants;
+            owner.restaurants=restaurants;
             return this;
         }
     }
@@ -59,14 +63,14 @@ public class Owner extends User{
     @Override
     public String toString() {
         return "Owner{" +
-                "restaurants=" + restaurants +
+//                "restaurants=" + restaurants +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", id=" + id +
+//                ", id=" + id +
                 '}';
     }
 
@@ -86,5 +90,13 @@ public class Owner extends User{
     public void removeRestaurant(Restaurant restaurant)
     {
         restaurants.remove(restaurant);
+    }
+
+    public static Map<String, Owner> getOwnersByEmail() {
+        return ownersByEmail;
+    }
+
+    public static void setOwnersByEmail(Map<String, Owner> ownersByEmail) {
+        Owner.ownersByEmail = ownersByEmail;
     }
 }
