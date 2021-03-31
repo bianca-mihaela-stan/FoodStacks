@@ -21,7 +21,7 @@ public class DeliveryService {
     public void addDish(Delivery delivery, Dish dish, Double price, Integer numberOfPortions)
     {
         var dishes = delivery.getDishesOrdered();
-        dishes.add(new Triplet<Dish, Integer, Double>(dish, numberOfPortions, price));
+        dishes.add(new Triplet<>(dish, numberOfPortions, price));
         delivery.setFinalPrice(delivery.getFinalPrice() + price*numberOfPortions);
         delivery.setDishesOrdered(dishes);
     }
@@ -39,6 +39,7 @@ public class DeliveryService {
             }
         }
     }
+
     public void setPortionsForDish(Delivery delivery, Dish dish, Integer number)
     {
         var dishes = delivery.getDishesOrdered();

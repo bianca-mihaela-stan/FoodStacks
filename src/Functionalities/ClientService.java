@@ -341,15 +341,198 @@ public class ClientService extends PlatformService {
                     ord.addDish(order, dish.getValue0(), dish.getValue2(), dish.getValue1());
                 }
                 PlatformService platformService = getInstance();
+                CartService cartService = CartService.getInstance();
                 if (platformService.assignDelivery(order)) {
                     orders.add(order);
                     System.out.println("Your delivery was successfully processed!");
+                    var dishes = cart.getDishes();
+                    dishes.remove(restaurant);
+                    cart.setDishes(dishes);
                 }
                 else {
                     System.out.println("Sorry, there aren't enough drivers to process this delivery!");
                 }
             }
             ((Client) loggedInUser).setOrders(orders);
+            ((Client) loggedInUser).setCart(cart);
+        }
+        else
+        {
+            System.out.println("You are not a client!");
+        }
+    }
+
+    public boolean verifyDishInOrder(Dish dish, Order order)
+    {
+        var dishesOrdered = order.getDishesOrdered();
+        for(var triplet : dishesOrdered)
+        {
+            if(triplet.getValue0().equals(dish))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean verifyDishInOrders(Dish dish)
+    {
+        if(loggedInUser instanceof Client)
+        {
+            var orders = ((Client) loggedInUser).getOrders();
+            for(var order : orders)
+            {
+                if(verifyDishInOrder(dish, order))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public void leaveAReview(Review review, Dish dish)
+    {
+        if(loggedInUser instanceof Client)
+        {
+            if(verifyDishInOrders(dish))
+            {
+                var reviews = dish.getReviews();
+                reviews.add(review);
+                dish.setReviews(reviews);
+                System.out.println("Your review was successfully added!");
+            }
+            else
+            {
+                System.out.println("You can't review a dish if you've never ordered it!");
+            }
+        }
+        else
+        {
+            System.out.println("You are not a client!");
+        }
+    }
+
+    public void leaveAReview(Integer nrStars,  Dish dish)
+    {
+        if(loggedInUser instanceof Client)
+        {
+            if(verifyDishInOrders(dish))
+            {
+                Review review = new Review.Builder(loggedInUser, nrStars).build();
+                var reviews = dish.getReviews();
+                reviews.add(review);
+                dish.setReviews(reviews);
+                System.out.println("Your review was successfully added!");
+            }
+            else
+            {
+                System.out.println("You can't review a dish if you've never ordered it!");
+            }
+        }
+        else
+        {
+            System.out.println("You are not a client!");
+        }
+    }
+
+    public void leaveAReview(Integer nrStars, String text,  Dish dish)
+    {
+        if(loggedInUser instanceof Client)
+        {
+            if(verifyDishInOrders(dish))
+            {
+                Review review = new Review.Builder(loggedInUser, nrStars).withText(text).build();
+                var reviews = dish.getReviews();
+                reviews.add(review);
+                dish.setReviews(reviews);
+                System.out.println("Your review was successfully added!");
+            }
+            else
+            {
+                System.out.println("You can't review a dish if you've never ordered it!");
+            }
+        }
+        else
+        {
+            System.out.println("You are not a client!");
+        }
+    }
+
+    public boolean verifyRestaurantInOrders(Restaurant restaurant)
+    {
+        if(loggedInUser instanceof Client)
+        {
+            var orders = ((Client) loggedInUser).getOrders();
+            for(var order : orders)
+            {
+                if(order.getRestaurant().equals(restaurant))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void leaveAReview(Review review, Restaurant restaurant)
+    {
+        if(loggedInUser instanceof Client)
+        {
+            if(verifyRestaurantInOrders(restaurant))
+            {
+                var reviews = restaurant.getReviews();
+                reviews.add(review);
+                restaurant.setReviews(reviews);
+                System.out.println("Your review was successfully added!");
+            }
+            else
+            {
+                System.out.println("You can't review a restaurant if you've never ordered from it!");
+            }
+        }
+        else
+        {
+            System.out.println("You are not a client!");
+        }
+    }
+    public void leaveAReview(Integer nrStars, Restaurant restaurant)
+    {
+        if(loggedInUser instanceof Client)
+        {
+            Review review = new Review.Builder(loggedInUser, nrStars).build();
+            if(verifyRestaurantInOrders(restaurant))
+            {
+                var reviews = restaurant.getReviews();
+                reviews.add(review);
+                restaurant.setReviews(reviews);
+                System.out.println("Your review was successfully added!");
+            }
+            else
+            {
+                System.out.println("You can't review a restaurant if you've never ordered from it!");
+            }
+        }
+        else
+        {
+            System.out.println("You are not a client!");
+        }
+    }
+
+    public void leaveAReview(Integer nrStars, String text, Restaurant restaurant)
+    {
+        if(loggedInUser instanceof Client)
+        {
+            Review review = new Review.Builder(loggedInUser, nrStars).withText(text).build();
+            if(verifyRestaurantInOrders(restaurant))
+            {
+                var reviews = restaurant.getReviews();
+                reviews.add(review);
+                restaurant.setReviews(reviews);
+                System.out.println("Your review was successfully added!");
+            }
+            else
+            {
+                System.out.println("You can't review a restaurant if you've never ordered from it!");
+            }
         }
         else
         {

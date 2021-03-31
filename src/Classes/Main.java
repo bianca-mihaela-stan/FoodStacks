@@ -79,59 +79,75 @@ public class Main {
         //Creating a driver.
         Driver driver1 = new Driver.Builder("driver1@email.com", "aB1").withPhoneNumber("0767823456").build();
 
-        System.out.println("Registering a client:\n");
+        System.out.println("Registering a client:");
         clientService = ClientService.getInstance();
         clientService.Register("client2@emial.com", "A17a");
+        System.out.println("\n");
 
         // Adding an address for this client.
         clientService.addAddress(address2, AddressIdentifier.Home);
 
         // Adding things to cart.
         clientService.addToCart(restaurant1, menu2, "Dessert", dish2, 2);
+        System.out.println("\n");
 
         // Attempting to add another item to cart.
         // It's not added because the dish does belong in that category.
         clientService.addToCart(restaurant1, menu1, "Alcoholic", dish3, 2);
+        System.out.println("\n");
 
         // Attempting to add another item to cart.
         // It's not added because the category has a typo.
         clientService.addToCart(restaurant1, menu1, "Alcohoic", dish3, 2);
+        System.out.println("\n");
 
         System.out.println("Seeing the cart after attempting to add the elements: \n");
         System.out.println(((Client) clientService.getLoggedInUser()).getCart());
+        System.out.println("\n");
 
         // Removing the portions from cart,
         clientService.removeFromCart(restaurant1, dish2, 2 );
+        System.out.println("\n");
+
 
         System.out.println("Seeing the effects removing the portions from the cart: \n");
         System.out.println(((Client) clientService.getLoggedInUser()).getCart());
+        System.out.println("\n");
 
         // Creating a new order for this client.
         Order order1 = new Order.Builder(restaurant1, client1).withDish(dish1, 10.0).build();
 
         System.out.println("Seeing the new order created: ");
         System.out.println(order1);
+        System.out.println("\n");
 
         // Changing the number of portions in the order.
         orderService.setPortionsForDish(order1, dish1, 2);
 
         System.out.println("Observing how the portions changed");
         System.out.println(order1);
+        System.out.println("\n");
 
         // Adding something to cart.
         clientService.addToCart(restaurant1, menu2, "Soups", dish1, 2);
+        System.out.println("\n");
 
         // Attempting to finish the delivery to home.
         clientService.finishOrder();
+        System.out.println("\n");
 
-        System.out.println("Observing that the delivery was added.");
+        System.out.println("Observing that the order was added.");
         System.out.println(((Client) clientService.getLoggedInUser()).getOrders());
+        System.out.println("\n");
 
         // Adding the restaurant to favourites.
         clientService.addRestaurantToFavourites(restaurant1);
+        System.out.println("\n");
 
         // Observing that it has been added.
         System.out.println(((Client) clientService.getLoggedInUser()).getFavourites());
+        System.out.println("\n");
+
 
         System.out.println("\nThe cart of the current user before heading for delivery: \n");
         System.out.println(((Client) clientService.getLoggedInUser()).getCart());
@@ -139,8 +155,14 @@ public class Main {
         clientService.addToCart(restaurant1, menu2, "Sides", dish3, 1);
 
         clientService.finishDelivery(AddressIdentifier.Home);
+        System.out.println("\n");
 
+        // The cart was already empty here:
         cartService.removeFromCart(restaurant1, dish4);
+        System.out.println("\n");
+
+        clientService.leaveAReview(5, "Lovely", restaurant1);
+        System.out.println();
 
         // Logging out to log in as owner.
         platformService.LogOut();
@@ -167,12 +189,13 @@ public class Main {
         dishService.addIngredientToDish(restaurant2, dish5, "milk", 20, Quantity.ml);
 
         System.out.println(restaurant2.getMenus());
-
+        System.out.println("\n");
         // Logging out to log in as a driver.
         ownerService.LogOut();
 
         platformService.LogIn("driver1@email.com", "aB1");
 
+        System.out.println("Observing the delivery that we created earlier was assigned to this driver:");
         driverService.showDeliveriesToday();
 
 

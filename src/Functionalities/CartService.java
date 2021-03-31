@@ -1,9 +1,6 @@
 package Functionalities;
 
-import Classes.Cart;
-import Classes.Client;
-import Classes.Dish;
-import Classes.Restaurant;
+import Classes.*;
 import org.javatuples.Triplet;
 
 import java.util.HashMap;
@@ -46,6 +43,24 @@ public class CartService extends PlatformService {
             cart.setDishes(dishes);
             ((Client) loggedInUser).setCart(cart);
             System.out.println("Dish "+ dish + " was successfully removed from cart!");
+        }
+    }
+
+    public void removeAnyRestaurantsWithNoDishes()
+    {
+        if(loggedInUser instanceof Client)
+        {
+            var cart = ((Client) loggedInUser).getCart();
+            var dishes = cart.getDishes();
+            for(var restaurant : dishes.keySet())
+            {
+                if(dishes.get(restaurant).size()==0)
+                {
+                    dishes.remove(restaurant);
+                }
+            }
+            cart.setDishes(dishes);
+            ((Client) loggedInUser).setCart(cart);
         }
     }
 
