@@ -19,7 +19,7 @@ public class Main {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CloneNotSupportedException {
 
         PlatformService platformService = PlatformService.getInstance();
         AddressService addressService = AddressService.getInstance();
@@ -197,15 +197,6 @@ public class Main {
 
         System.out.println("Observing the delivery that we created earlier was assigned to this driver:");
         driverService.showDeliveriesToday();
-
-
-
-
-
-
-
-
-
 
 //        System.out.println(driver1);
 //        System.out.println(address1);

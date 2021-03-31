@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.javatuples.Triplet;
 import org.javatuples.Pair;
 
-public class Order {
+public class Order{
     protected LocalDate date;
     protected List<Triplet<Dish, Integer, Double>> dishesOrdered = new ArrayList<Triplet<Dish, Integer, Double>>();
     protected Double finalPrice = 0.0;
@@ -91,13 +91,17 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "date=" + date +
-                ", dishesOrdered=" + dishesOrdered +
-                ", finalPrice=" + finalPrice +
+        String output = "Delivery{" +
+                ", date=" + date + ", dishesDelivered=";
+        for(var dish : dishesOrdered)
+        {
+            output+="("+dish.getValue0().getName()+", "+ dish.getValue1() + ", "+dish.getValue2()+ ")";
+        }
+        output+= ", finalPrice=" + finalPrice +
                 ", restaurant=" + restaurant.getName() +
                 ", user=" + user.getEmail() +
                 '}';
+        return output;
     }
 
     public LocalDate getDate() {

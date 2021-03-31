@@ -4,10 +4,24 @@ import java.util.*;
 import org.javatuples.Triplet;
 import org.javatuples.Pair;
 
-public class Dish {
+public class Dish implements Cloneable {
     private String name;
     private HashMap<String, Pair<Integer , Quantity>> recipe= new HashMap<String, Pair<Integer , Quantity>>();
     private List<Review> reviews = new ArrayList<Review>();
+
+    public Dish clone() throws CloneNotSupportedException
+    {
+        Dish dish =new Dish();
+        dish.name = name;
+        dish.recipe = ((HashMap<String, Pair<Integer , Quantity>>) recipe.clone());
+        List<Review> rev = new ArrayList<Review>();
+        for(var review : this.reviews)
+        {
+            rev.add(review.clone());
+        }
+        dish.reviews=rev;
+        return dish;
+    }
 
     public static class Builder {
 

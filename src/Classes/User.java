@@ -2,7 +2,7 @@ package Classes;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class User {
+public class User implements Cloneable{
     protected String name;
     protected String surname;
     protected String username;
@@ -11,6 +11,17 @@ public class User {
     protected String phoneNumber;
     protected Long id;
 
+    public Object clone() throws CloneNotSupportedException
+    {
+        User user = new User();
+        user.name=name;
+        user.surname=surname;
+        user.email=email;
+        user.password=email;
+        user.phoneNumber=phoneNumber;
+        user.username=username;
+        return user;
+    }
 
     protected static AtomicLong userID = new AtomicLong(0);
 

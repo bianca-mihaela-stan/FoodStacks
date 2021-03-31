@@ -3,7 +3,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class Address {
+public class Address implements Cloneable{
     protected County county;
     protected String city;
     protected Integer sector;
@@ -41,6 +41,21 @@ public class Address {
         this.entrance=entrance;
         this.floor=floor;
         this.apartmentNumber=apartmentNumber;
+    }
+
+    public Address clone() throws CloneNotSupportedException
+    {
+        Address address = new Address();
+        address.county=county;
+        address.city=city;
+        address.sector=sector;
+        address.street=street;
+        address.number = number;
+        address.block=block;
+        address.entrance=entrance;
+        address.floor=floor;
+        address.apartmentNumber=apartmentNumber;
+        return address;
     }
 
     public static class Builder{

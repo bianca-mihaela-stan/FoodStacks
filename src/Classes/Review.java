@@ -3,11 +3,21 @@ package Classes;
 import java.time.LocalDate;
 import java.util.*;
 
-public class Review {
+public class Review implements Cloneable {
     private User user;
     private String text;
     private LocalDate date;
     private Integer nrStars;
+
+    public Review clone() throws CloneNotSupportedException
+    {
+        Review review = new Review();
+        review.user = user; // Here it's not cloning the user.
+        review.text=text;
+        review.date = date;
+        review.nrStars = nrStars;
+        return review;
+    }
 
     public static class Builder {
 

@@ -8,6 +8,18 @@ public class Owner extends User{
     List<Restaurant> restaurants= new ArrayList<Restaurant>();
     protected static Map<String, Owner> ownersByEmail = new Hashtable<String, Owner>();
 
+    public Owner clone() throws CloneNotSupportedException
+    {
+        Owner owner = (Owner) super.clone();
+        List<Restaurant> rest = new ArrayList<>();
+        for(var r : this.restaurants)
+        {
+            rest.add(r.clone());
+        }
+        owner.restaurants=rest;
+        return owner;
+    }
+
     public Owner()
     {
         super();

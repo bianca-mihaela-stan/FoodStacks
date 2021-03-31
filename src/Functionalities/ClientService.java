@@ -298,7 +298,7 @@ public class ClientService extends PlatformService {
         return null;
     }
 
-    public void finishOrder()
+    public void finishOrder() throws CloneNotSupportedException
     {
         if(loggedInUser instanceof Client)
         {
@@ -310,7 +310,8 @@ public class ClientService extends PlatformService {
                 OrderService ord = OrderService.getInstance();
                 for(var dish : cart.getDishes().get(restaurant))
                 {
-                    ord.addDish(order, dish.getValue0(), dish.getValue2(), dish.getValue1());
+                    // Here I clone the dish because any of the further changes on the dish should not be visible in the order.
+                    ord.addDish(order, dish.getValue0().clone(), dish.getValue2(), dish.getValue1());
                 }
                 PlatformService platformService = getInstance();
             }
@@ -325,7 +326,7 @@ public class ClientService extends PlatformService {
         }
     }
 
-    public void finishDelivery(AddressIdentifier addressIdentifier)
+    public void finishDelivery(AddressIdentifier addressIdentifier) throws CloneNotSupportedException
     {
         if(loggedInUser instanceof Client)
         {
@@ -338,7 +339,8 @@ public class ClientService extends PlatformService {
                 DeliveryService ord = DeliveryService.getInstance();
                 for (var dish : cart.getDishes().get(restaurant))
                 {
-                    ord.addDish(order, dish.getValue0(), dish.getValue2(), dish.getValue1());
+                    // Here I clone the dish because any of the further changes on the dish should not be visible in the delivery.
+                    ord.addDish(order, dish.getValue0().clone(), dish.getValue2(), dish.getValue1());
                 }
                 PlatformService platformService = getInstance();
                 CartService cartService = CartService.getInstance();
@@ -389,14 +391,14 @@ public class ClientService extends PlatformService {
         return false;
     }
 
-    public void leaveAReview(Review review, Dish dish)
+    public void leaveAReview(Review review, Dish dish) throws CloneNotSupportedException
     {
         if(loggedInUser instanceof Client)
         {
             if(verifyDishInOrders(dish))
             {
                 var reviews = dish.getReviews();
-                reviews.add(review);
+                reviews.add(review.clone());
                 dish.setReviews(reviews);
                 System.out.println("Your review was successfully added!");
             }
@@ -473,14 +475,14 @@ public class ClientService extends PlatformService {
         return false;
     }
 
-    public void leaveAReview(Review review, Restaurant restaurant)
+    public void leaveAReview(Review review, Restaurant restaurant) throws CloneNotSupportedException
     {
         if(loggedInUser instanceof Client)
         {
             if(verifyRestaurantInOrders(restaurant))
             {
                 var reviews = restaurant.getReviews();
-                reviews.add(review);
+                reviews.add(review.clone());
                 restaurant.setReviews(reviews);
                 System.out.println("Your review was successfully added!");
             }

@@ -5,10 +5,18 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import org.javatuples.Pair;
 
-public class Menu {
+public class Menu implements Cloneable{
     HashMap<String, List<Pair<Dish, Double>>> elements = new HashMap<String, List<Pair<Dish, Double>>>();
     String name;
     private long id;
+
+    public Menu clone() throws CloneNotSupportedException
+    {
+        Menu menu = new Menu();
+        menu.elements=(HashMap<String, List<Pair<Dish, Double>>>) elements.clone();
+        menu.name = name;
+        return menu;
+    }
 
     private static AtomicLong menuID = new AtomicLong(0);
 

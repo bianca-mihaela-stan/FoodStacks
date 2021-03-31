@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class Restaurant {
+public class Restaurant implements Cloneable {
     private String name;
     private List<String> phoneNumbers = new ArrayList<String>();
     private Address address;
@@ -28,6 +28,34 @@ public class Restaurant {
     Restaurant()
     {
         id = newID();
+    }
+
+    public Restaurant clone() throws CloneNotSupportedException
+    {
+        Restaurant restaurant = new Restaurant();
+        restaurant.name = name;
+        restaurant.address = address.clone(); // Here i'm cloning the address.
+        List<String> phone = new ArrayList<>();
+        for(var ph : phoneNumbers)
+        {
+            phone.add(ph);
+        }
+        restaurant.phoneNumbers=phone;
+        List<Review> rev = new ArrayList<Review>();
+        for(var review : this.reviews)
+        {
+            rev.add(review.clone());
+        }
+        restaurant.reviews=rev;
+        restaurant.owner = owner.clone();
+        List<Menu> men = new ArrayList<>();
+        for(var m : menus)
+        {
+            men.add(m.clone());
+        }
+        restaurant.menus=men;
+        restaurant.restaurantType = restaurantType;
+        return restaurant;
     }
 
 

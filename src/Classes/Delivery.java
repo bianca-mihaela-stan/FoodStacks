@@ -63,14 +63,18 @@ public class Delivery extends Order{
 
     @Override
     public String toString() {
-        return "Delivery{" +
+        String output = "Delivery{" +
                 "address=" + address +
-                ", date=" + date +
-                ", dishesDelivered=" + dishesOrdered +
-                ", finalPrice=" + finalPrice +
+                ", date=" + date + ", dishesDelivered=";
+        for(var dish : dishesOrdered)
+        {
+            output+="("+dish.getValue0().getName()+", "+ dish.getValue1() + ", "+dish.getValue2()+ ")";
+        }
+        output+= ", finalPrice=" + finalPrice +
                 ", restaurant=" + restaurant.getName() +
                 ", user=" + user.getEmail() +
                 '}';
+        return output;
     }
 
 
