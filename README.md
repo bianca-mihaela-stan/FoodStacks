@@ -1,4 +1,4 @@
-# FoodStacks
+# FoodStacks 🍕
 Classes:
 - Address
 - Cart
