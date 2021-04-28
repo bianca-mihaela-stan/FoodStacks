@@ -1,9 +1,6 @@
 package Functionalities;
 
-import Classes.Dish;
-import Classes.Owner;
-import Classes.Quantity;
-import Classes.Restaurant;
+import Classes.*;
 import org.javatuples.Pair;
 
 import javax.swing.*;
@@ -16,10 +13,11 @@ import static java.lang.Integer.valueOf;
 public class DishService extends PlatformService{
     private List<Dish> dishes;
     private static DishService instance;
+    Audit audit;
 
     private DishService()
     {
-
+        audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
     }
 
     public static DishService getInstance()
@@ -34,6 +32,7 @@ public class DishService extends PlatformService{
 
     public void addIngredientToDish(Restaurant restaurant, Dish dish, String ingredient, Integer number, Quantity quantity)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             Pair<Integer, Quantity> pair = new Pair<Integer, Quantity>(number, quantity);
@@ -57,6 +56,7 @@ public class DishService extends PlatformService{
 
     public void removeIngredient(Restaurant restaurant, Dish dish, String ingredient)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             Pair<Integer, Quantity> pair = dish.getRecipe().get(ingredient);
@@ -80,6 +80,7 @@ public class DishService extends PlatformService{
 
     public void editQuantity(Restaurant restaurant, Dish dish, String ingredient, Quantity newQuantity)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             Pair<Integer, Quantity> pair = dish.getRecipe().get(ingredient);
@@ -104,6 +105,7 @@ public class DishService extends PlatformService{
 
     public void editNumberQuantity(Restaurant restaurant, Dish dish, String ingredient, Integer  newQuantity)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser) && verifyIngredientInDish(ingredient, dish))
         {
             Pair<Integer, Quantity> pair = dish.getRecipe().get(ingredient);
@@ -128,6 +130,7 @@ public class DishService extends PlatformService{
 
     public boolean verifyIngredientInDish(String ingredient, Dish dish)
     {
+        audit.writeToFile();
         return dish.getRecipe().containsKey(ingredient);
     }
 

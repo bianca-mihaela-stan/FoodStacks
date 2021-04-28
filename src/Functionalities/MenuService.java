@@ -1,9 +1,6 @@
 package Functionalities;
 
-import Classes.Dish;
-import Classes.Menu;
-import Classes.Owner;
-import Classes.Restaurant;
+import Classes.*;
 import org.javatuples.Pair;
 
 import java.util.ArrayList;
@@ -14,10 +11,10 @@ import static java.lang.Integer.parseInt;
 
 public class MenuService extends PlatformService{
     private static MenuService instance;
-
+    Audit audit;
     private MenuService()
     {
-
+        audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
     }
 
 
@@ -32,6 +29,7 @@ public class MenuService extends PlatformService{
 
     public void editDishPrice(Restaurant restaurant, Menu menu, String category, Dish dish, Double price)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             var elements = menu.getElements();
@@ -64,6 +62,7 @@ public class MenuService extends PlatformService{
 
     public void editDishPrice(Restaurant restaurant, Menu menu, Dish dish, Double price)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             String category = getCategoryOf(menu, dish);
@@ -98,6 +97,7 @@ public class MenuService extends PlatformService{
 
     public void addCategory(Restaurant restaurant, Menu menu, String category)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             List<Pair<Dish, Double>> list = new ArrayList<Pair<Dish, Double>>();
@@ -121,6 +121,7 @@ public class MenuService extends PlatformService{
 
     public void removeCategory(Restaurant restaurant, Menu menu, String category)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             var elements = menu.getElements();
@@ -144,6 +145,7 @@ public class MenuService extends PlatformService{
 
     public void addDish(Restaurant restaurant, Menu menu, String category, Dish dish, Double price)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner()!= null && restaurant.getOwner().equals(loggedInUser))
         {
             Pair<Dish, Double> pair = new Pair<>(dish, price);
@@ -179,6 +181,7 @@ public class MenuService extends PlatformService{
 
     public void removeDish(Restaurant restaurant, Menu menu, Dish dish)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             var elements = menu.getElements();

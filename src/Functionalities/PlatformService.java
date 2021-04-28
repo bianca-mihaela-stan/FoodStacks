@@ -14,11 +14,13 @@ public class PlatformService {
 
     protected static User loggedInUser= null;
     protected static Scanner scanner = new Scanner(System.in);
-
+    private Audit audit;
+    private ReadData readData;
 
     protected PlatformService()
     {
-
+        audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
+        readData = ReadData.getInstance();
     }
 
     public static PlatformService getInstance()

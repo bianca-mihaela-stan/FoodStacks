@@ -1,5 +1,6 @@
 package Functionalities;
 
+import Classes.Audit;
 import Classes.Menu;
 import Classes.Owner;
 import Classes.Restaurant;
@@ -9,10 +10,11 @@ import java.util.List;
 public class RestaurantService extends PlatformService{
 
     private static RestaurantService instance;
+    Audit audit;
 
     private RestaurantService()
     {
-
+        audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
     }
 
 
@@ -27,6 +29,7 @@ public class RestaurantService extends PlatformService{
     
     public void addMenu(Menu menu, Restaurant restaurant)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner()!= null && restaurant.getOwner().equals(loggedInUser))
         {
             List<Menu> menus = restaurant.getMenus();
@@ -57,6 +60,7 @@ public class RestaurantService extends PlatformService{
 
     public void removeMenu(Restaurant restaurant, Menu menu)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             var menus = restaurant.getMenus();

@@ -9,10 +9,11 @@ import java.util.List;
 public class CartService extends PlatformService {
 
     private static CartService instance;
+    private Audit audit;
 
     private CartService()
     {
-
+        audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
     }
 
 
@@ -27,6 +28,7 @@ public class CartService extends PlatformService {
     
     public void removeFromCart(Restaurant restaurant, Dish dish)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             var cart = ((Client) loggedInUser).getCart();
@@ -48,6 +50,7 @@ public class CartService extends PlatformService {
 
     public void removeAnyRestaurantsWithNoDishes()
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             var cart = ((Client) loggedInUser).getCart();
@@ -67,6 +70,7 @@ public class CartService extends PlatformService {
 
     public void increaseNumberFromCart(Cart cart, Restaurant restaurant, Dish dish, Integer by)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             HashMap<Restaurant, List<Triplet<Dish, Integer, Double>>> dishes = cart.getDishes();

@@ -27,9 +27,9 @@ public class Address implements Cloneable{
         id=newID();
     }
 
-    Address(County county, String city, Integer sector,
-            String street, String number, String block, String entrance,
-            Integer floor, Integer apartmentNumber)
+    public Address(County county, String city, Integer sector,
+                   String street, String number, String block, String entrance,
+                   Integer floor, Integer apartmentNumber)
     {
         this.id = newID();
         this.county=county;

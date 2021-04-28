@@ -14,18 +14,21 @@ import static java.lang.Integer.valueOf;
 
 public class OwnerService extends PlatformService {
     protected static OwnerService instance;
+    Audit audit;
 
     public static OwnerService getInstance()
     {
         if(instance==null)
         {
             instance= new OwnerService();
+            instance.audit =  Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
         }
         return instance;
     }
 
     public void RegisterAsOwner(String email, String password)
     {
+        audit.writeToFile();
         PlatformService platformService=getInstance();
 
         if(Owner.getOwnersByEmail().containsKey(email))
@@ -52,6 +55,7 @@ public class OwnerService extends PlatformService {
 
     public void removeRestaurant(Restaurant restaurant)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner().equals(loggedInUser))
         {
             var restaurants = ((Owner) loggedInUser).getRestaurants();
@@ -63,6 +67,7 @@ public class OwnerService extends PlatformService {
 
     public void addRestaurant(Restaurant restaurant)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Owner && restaurant.getOwner()!=null && restaurant.equals(loggedInUser))
         {
             var restaurants = ((Owner) loggedInUser).getRestaurants();

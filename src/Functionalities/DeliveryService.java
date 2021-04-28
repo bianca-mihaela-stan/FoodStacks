@@ -1,5 +1,6 @@
 package Functionalities;
 
+import Classes.Audit;
 import Classes.Dish;
 import Classes.Delivery;
 import org.javatuples.Triplet;
@@ -7,19 +8,21 @@ import org.javatuples.Triplet;
 public class DeliveryService {
 
     protected static DeliveryService instance;
-
+    Audit audit;
 
     public static DeliveryService getInstance()
     {
         if(instance==null)
         {
             instance= new DeliveryService();
+            instance.audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
         }
         return instance;
     }
 
     public void addDish(Delivery delivery, Dish dish, Double price, Integer numberOfPortions)
     {
+        audit.writeToFile();
         var dishes = delivery.getDishesOrdered();
         dishes.add(new Triplet<>(dish, numberOfPortions, price));
         delivery.setFinalPrice(delivery.getFinalPrice() + price*numberOfPortions);
@@ -27,6 +30,7 @@ public class DeliveryService {
     }
     public void removeDish(Delivery delivery, Dish dish)
     {
+        audit.writeToFile();
         var dishes = delivery.getDishesOrdered();
         for(var elem : dishes)
         {
@@ -42,6 +46,7 @@ public class DeliveryService {
 
     public void setPortionsForDish(Delivery delivery, Dish dish, Integer number)
     {
+        audit.writeToFile();
         var dishes = delivery.getDishesOrdered();
         for(Triplet<Dish, Integer, Double> elem : dishes)
         {

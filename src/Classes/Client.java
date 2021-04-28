@@ -22,6 +22,16 @@ public class Client extends User {
         super(name, surname, username, email, password, phoneNumber);
     }
 
+    public Client(User user)
+    {
+        super(user.name, user.surname, user.username, user.email, user.password, user.phoneNumber);
+    }
+    public void addAddress(Address address, AddressIdentifier addressIdentifier)
+    {
+        if (!addresses.containsKey(addressIdentifier))
+            addresses.put(addressIdentifier, address);
+    }
+
 //    public Client(Client otherClient) {
 //        name = otherClient.name;
 //        surname = otherClient.surname;

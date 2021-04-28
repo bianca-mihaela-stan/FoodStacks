@@ -1,0 +1,8 @@
+City,County,Sector,Street,Number,Block,Entrance,Floor,ApartmentNumber,id
+Bucuresti,,1,Str. Ana,89,10,,3,11,1
+Targoviste,Dambovita,,Str. Trandafirilor,11,,A,,,2
+Ploiesti,Prahova,,Bul. Eroilor,82,11,C,2,9,3
+Bucuresti,,4,Str. Violetei,101,,,,,4
+Bucuresti,,6,Str. Anei,7,,,,,5
+Bucuresti,,5,Str. Vlahuta,9,,,,,6
+Bucuresti,,1,Str. Aninoasa,100,6,A,9,71,7

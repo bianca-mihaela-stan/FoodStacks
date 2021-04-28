@@ -15,10 +15,11 @@ import static java.lang.Float.min;
 public class ClientService extends PlatformService {
 
     private static ClientService instance;
+    private Audit audit;
 
     private ClientService()
     {
-
+        audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
     }
 
 
@@ -33,7 +34,7 @@ public class ClientService extends PlatformService {
 
     public void Register(String email, String password)
     {
-
+        audit.writeToFile();
         if(Client.getClientsByEmail().containsKey(email))
         {
             System.out.println("This email already has an account!");
@@ -62,6 +63,7 @@ public class ClientService extends PlatformService {
 
     public void editAddress(AddressIdentifier addressIdentifier, Address address)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             HashMap<AddressIdentifier, Address> addresses = ((Client) loggedInUser).getAddresses();
@@ -80,6 +82,7 @@ public class ClientService extends PlatformService {
 
     public void addAddress(Address address, AddressIdentifier addressIdentifier)
     {
+        audit.writeToFile();
         if( loggedInUser instanceof Client)
         {
             HashMap<AddressIdentifier, Address> addresses = ((Client) loggedInUser).getAddresses();
@@ -98,6 +101,7 @@ public class ClientService extends PlatformService {
 
     public void deleteAddress(AddressIdentifier addressIdentifier)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             HashMap<AddressIdentifier, Address> addresses = ((Client) loggedInUser).getAddresses();
@@ -118,6 +122,7 @@ public class ClientService extends PlatformService {
 
     public void addRestaurantToFavourites(Restaurant restaurant)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             var favourites = ((Client) loggedInUser).getFavourites();
@@ -149,6 +154,7 @@ public class ClientService extends PlatformService {
 
     public void removeRestaurantToFavourites(Restaurant restaurant)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             var favourites = ((Client) loggedInUser).getFavourites();
@@ -173,6 +179,7 @@ public class ClientService extends PlatformService {
 
     public void addToCart(Restaurant restaurant, Menu menu, String category, Dish dish, Integer number_of_portions)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client && number_of_portions>0 && verifyDishInCategoryInMenu(dish, category, menu))
         {
             Cart cart = ((Client) loggedInUser).getCart();
@@ -214,6 +221,7 @@ public class ClientService extends PlatformService {
 
     public void removeFromCart(Restaurant restaurant, Dish dish, Integer number_of_portions)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client && number_of_portions>0)
         {
             Cart cart = ((Client) loggedInUser).getCart();
@@ -253,6 +261,7 @@ public class ClientService extends PlatformService {
 
     public void removeFromCart(Restaurant restaurant, Dish dish)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             Cart cart = ((Client) loggedInUser).getCart();
@@ -283,6 +292,7 @@ public class ClientService extends PlatformService {
 
     public Double getPriceOf(Dish dish, Restaurant restaurant, Menu menu, String category)
     {
+        audit.writeToFile();
         var elements = menu.getElements();
         if(elements.containsKey(category))
         {
@@ -300,6 +310,7 @@ public class ClientService extends PlatformService {
 
     public void finishOrder() throws CloneNotSupportedException
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             var cart = ((Client) loggedInUser).getCart();
@@ -328,6 +339,7 @@ public class ClientService extends PlatformService {
 
     public void finishDelivery(AddressIdentifier addressIdentifier) throws CloneNotSupportedException
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             var cart = ((Client) loggedInUser).getCart();
@@ -366,6 +378,7 @@ public class ClientService extends PlatformService {
 
     public boolean verifyDishInOrder(Dish dish, Order order)
     {
+        audit.writeToFile();
         var dishesOrdered = order.getDishesOrdered();
         for(var triplet : dishesOrdered)
         {
@@ -379,6 +392,7 @@ public class ClientService extends PlatformService {
 
     public boolean verifyDishInOrders(Dish dish)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             var orders = ((Client) loggedInUser).getOrders();
@@ -393,6 +407,7 @@ public class ClientService extends PlatformService {
 
     public void leaveAReview(Review review, Dish dish) throws CloneNotSupportedException
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             if(verifyDishInOrders(dish))
@@ -415,6 +430,7 @@ public class ClientService extends PlatformService {
 
     public void leaveAReview(Integer nrStars,  Dish dish)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             if(verifyDishInOrders(dish))
@@ -438,6 +454,7 @@ public class ClientService extends PlatformService {
 
     public void leaveAReview(Integer nrStars, String text,  Dish dish)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             if(verifyDishInOrders(dish))
@@ -461,6 +478,7 @@ public class ClientService extends PlatformService {
 
     public boolean verifyRestaurantInOrders(Restaurant restaurant)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             var orders = ((Client) loggedInUser).getOrders();
@@ -477,6 +495,7 @@ public class ClientService extends PlatformService {
 
     public void leaveAReview(Review review, Restaurant restaurant) throws CloneNotSupportedException
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             if(verifyRestaurantInOrders(restaurant))
@@ -498,6 +517,7 @@ public class ClientService extends PlatformService {
     }
     public void leaveAReview(Integer nrStars, Restaurant restaurant)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             Review review = new Review.Builder(loggedInUser, nrStars).build();
@@ -521,6 +541,7 @@ public class ClientService extends PlatformService {
 
     public void leaveAReview(Integer nrStars, String text, Restaurant restaurant)
     {
+        audit.writeToFile();
         if(loggedInUser instanceof Client)
         {
             Review review = new Review.Builder(loggedInUser, nrStars).withText(text).build();

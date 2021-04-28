@@ -8,6 +8,8 @@ import Functionalities.*;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,9 +19,8 @@ import static java.lang.String.valueOf;
 
 public class Main {
 
-    private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) throws CloneNotSupportedException {
+    public static void main(String[] args) throws CloneNotSupportedException, FileNotFoundException {
 
         PlatformService platformService = PlatformService.getInstance();
         AddressService addressService = AddressService.getInstance();
@@ -27,11 +28,14 @@ public class Main {
         ClientService clientService = ClientService.getInstance();
         DeliveryService deliveryService = DeliveryService.getInstance();
         DishService dishService = DishService.getInstance();
-        DriverService driverService= DriverService.getInstance();
+        DriverService driverService = DriverService.getInstance();
         MenuService menuService = MenuService.getInstance();
         OrderService orderService = OrderService.getInstance();
         OwnerService ownerService = OwnerService.getInstance();
         RestaurantService restaurantService = RestaurantService.getInstance();
+        ReadData readData = ReadData.getInstance();
+
+        readData.readData();
 
 
         // Creating 3 addresses.
@@ -198,14 +202,14 @@ public class Main {
         System.out.println("Observing the delivery that we created earlier was assigned to this driver:");
         driverService.showDeliveriesToday();
 
-//        System.out.println(driver1);
-//        System.out.println(address1);
-//        System.out.println(address2);
-//        System.out.println(address3);
-//        System.out.println(menu1);
-//        System.out.println(menu2);
-//        System.out.println(client1);
-//        System.out.println(owner1);
+        System.out.println(driver1);
+        System.out.println(address1);
+        System.out.println(address2);
+        System.out.println(address3);
+        System.out.println(menu1);
+        System.out.println(menu2);
+        System.out.println(client1);
+        System.out.println(owner1);
     }
 
 

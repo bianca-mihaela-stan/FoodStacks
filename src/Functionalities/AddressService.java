@@ -1,6 +1,7 @@
 package Functionalities;
 
 import Classes.Address;
+import Classes.Audit;
 import Classes.County;
 import Functionalities.PlatformService;
 
@@ -9,10 +10,11 @@ import static java.lang.Integer.parseInt;
 public class AddressService extends PlatformService {
 
     private static AddressService instance;
+    private static Audit audit;
 
     private AddressService()
     {
-
+        audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
     }
 
 
@@ -27,6 +29,7 @@ public class AddressService extends PlatformService {
     
     public static Address addressFromInput()
     {
+        audit.writeToFile();
         System.out.println("Pick one county: \n");
         County[] counties = County.values();
         for(int i=0; i<counties.length; i++)

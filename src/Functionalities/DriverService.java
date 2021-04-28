@@ -1,5 +1,6 @@
 package Functionalities;
 
+import Classes.Audit;
 import Classes.Client;
 import Classes.Driver;
 
@@ -8,10 +9,11 @@ import java.time.LocalDate;
 public class DriverService extends PlatformService{
 
     private static DriverService instance;
+    Audit audit;
 
     private DriverService()
     {
-
+        audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
     }
 
     public static DriverService getInstance()
@@ -26,7 +28,7 @@ public class DriverService extends PlatformService{
 
     public void Register(String email, String password)
     {
-
+        audit.writeToFile();
         if(Client.getClientsByEmail().containsKey(email))
         {
             System.out.println("This email already has an account!");
@@ -53,6 +55,7 @@ public class DriverService extends PlatformService{
 
     public void showDeliveriesToday()
     {
+        audit.writeToFile();
         if(((Driver)loggedInUser).getDeliveries().containsKey(LocalDate.now()))
             System.out.println(((Driver)loggedInUser).getDeliveries().get(LocalDate.now()));
     }

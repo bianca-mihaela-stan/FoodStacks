@@ -1,5 +1,6 @@
 package Functionalities;
 
+import Classes.Audit;
 import Classes.Dish;
 import Classes.Order;
 import org.javatuples.Triplet;
@@ -8,19 +9,21 @@ import java.util.Comparator;
 
 public class OrderService extends PlatformService{
     protected static OrderService instance;
-
+    Audit audit;
 
     public static OrderService getInstance()
     {
         if(instance==null)
         {
             instance= new OrderService();
+            instance.audit = Audit.getInstance("F:\\Github\\FoodStacks\\Data\\Audit.csv");
         }
         return instance;
     }
 
     public void addDish(Order order, Dish dish, Double price, Integer numberOfPortions)
     {
+        audit.writeToFile();
         var dishes = order.getDishesOrdered();
         dishes.add(new Triplet<Dish, Integer, Double>(dish, numberOfPortions, price));
         order.setFinalPrice(order.getFinalPrice() + price*numberOfPortions);
@@ -28,6 +31,7 @@ public class OrderService extends PlatformService{
     }
     public void removeDish(Order order, Dish dish)
     {
+        audit.writeToFile();
         var dishes = order.getDishesOrdered();
         for(var elem : dishes)
         {
@@ -42,6 +46,7 @@ public class OrderService extends PlatformService{
     }
     public void setPortionsForDish(Order order, Dish dish, Integer number)
     {
+        audit.writeToFile();
         var dishes = order.getDishesOrdered();
         for(Triplet<Dish, Integer, Double> elem : dishes)
         {
