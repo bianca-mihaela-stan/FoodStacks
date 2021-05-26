@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3fbbe31f-2ab2-4c91-bdb1-b0236687fb42" name="Default Changelist" comment="Added Cloneable and toString.">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/commons_lang_commons_lang_2_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/opencsv_5_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_javatuples_javatuples_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Addresses.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Audit.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Carts_Dishes.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Categories_Menus.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Clients.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Clients_Addresses.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Dishes.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Favourites.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Ingredients.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Menus.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Orders.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Owners.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Recipes.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Restaurants.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Restaurants_Addresses.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Reviews.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Users.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FoodStacks.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Address.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/AddressIdentifier.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Audit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Cart.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Country.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/County.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Delivery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Dish.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Driver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Menu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Owner.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Quantity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Restaurant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/RestaurantType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Review.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/UserAddress.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/AddressService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/CartService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/ClientService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/DeliveryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/DishService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/DriverService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/MenuService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/OrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/OwnerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/PlatformService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/ReadData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/RestaurantService.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="JavaFXApplication" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1q1gJ9BPi1PUqslqH6ctXDdbKix" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DataGrid.QuickDoc.View" value="transposed" />
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="true" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="136" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="1" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="database.data.extractors.current.export.id" value="Comma-separated (CSV)_id" />
+    <property name="database.data.extractors.current.id" value="Comma-separated (CSV)_id" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/FoodStacks" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\GitHub\FoodStacks\src\Classes" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Classes.Main" />
+      <module name="FoodStacks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Functionalities.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main(1)" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Interface.GUI" />
+      <module name="FoodStacks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Interface.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="javafxapplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Interface.javafxapplication" />
+      <module name="FoodStacks" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Interface.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.Main(1)" />
+      <item itemvalue="Application.javafxapplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Main(1)" />
+        <item itemvalue="Application.javafxapplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3fbbe31f-2ab2-4c91-bdb1-b0236687fb42" name="Default Changelist" comment="" />
+      <created>1616252438057</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1616252438057</updated>
+      <workItem from="1616252440937" duration="2174000" />
+      <workItem from="1616573841560" duration="21917000" />
+      <workItem from="1616835747749" duration="12462000" />
+      <workItem from="1616866147625" duration="7683000" />
+      <workItem from="1616922894463" duration="3041000" />
+      <workItem from="1617003291946" duration="28228000" />
+      <workItem from="1617086704275" duration="21777000" />
+      <workItem from="1617128488227" duration="3716000" />
+      <workItem from="1617168021544" duration="7379000" />
+      <workItem from="1617224444204" duration="558000" />
+      <workItem from="1619426260255" duration="1470000" />
+      <workItem from="1619509305757" duration="9878000" />
+      <workItem from="1619596890544" duration="10017000" />
+      <workItem from="1621673512020" duration="7479000" />
+    </task>
+    <task id="LOCAL-00001" summary="Started project.">
+      <created>1616253782565</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1616253782565</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Started building a console interface.">
+      <created>1616923020115</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1616923020115</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added some Owner functionality.">
+      <created>1616926247225</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1616926247225</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added most of the functionality. Must add review functionality, solve toString and equals tomorrow.">
+      <created>1617132195103</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1617132195103</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added review functionality.">
+      <created>1617173841704</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1617173841704</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added Cloneable and toString.">
+      <created>1617177882139</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1617177882139</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Started project." />
+    <MESSAGE value="Started building a console interface." />
+    <MESSAGE value="Added some Owner functionality." />
+    <MESSAGE value="Added most of the functionality. Must add review functionality, solve toString and equals tomorrow." />
+    <MESSAGE value="Added review functionality." />
+    <MESSAGE value="Added Cloneable and toString." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Cloneable and toString." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassNotFoundException" package="java.lang" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
