@@ -57,10 +57,6 @@ public class Menu implements Cloneable {
         public Menu build()
         {
             var menus = MenuService.getMenusByRestaurant();
-            var list = menus.get(menu.restaurant);
-            list.add(menu);
-            menus.put(menu.restaurant, list);
-            MenuService.setMenusByRestaurant(menus);
             return this.menu;
         }
     }

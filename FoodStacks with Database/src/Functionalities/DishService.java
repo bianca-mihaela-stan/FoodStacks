@@ -5,10 +5,7 @@ import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.valueOf;
@@ -16,7 +13,7 @@ import static java.lang.Integer.valueOf;
 public class DishService extends PlatformService{
     private static List<Dish> dishes = new ArrayList<>();
     private static DishService instance;
-    private static Map<Long, Dish> dishesById;
+    private static Map<Long, Dish> dishesById = new Hashtable<>();
     Audit audit;
 
     public static List<Dish> getDishes() {

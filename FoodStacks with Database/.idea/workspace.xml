@@ -2,97 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6d686dac-5f6c-4602-8777-0fdde82e9eb1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Data/Audit.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Audit/Audit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Address.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/AddressToCSV.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Cart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Delivery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Dish.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Driver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Menu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Owner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Restaurant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/RestaurantType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/Review.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Classes/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Data/Address.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Data/Cart.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Data/Client.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Data/Dish.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Database/DatabaseConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Database/DatabaseManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Functionalities/AddressCSVToBean.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Mains/CsvPhase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Mains/DatabasePhase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Mains/FirstPhase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Validators/DataValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/libraries/commons_lang_commons_lang_2_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/libraries/lib.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/libraries/opencsv_5_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/libraries/org_javatuples_javatuples_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Addresses.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Audit.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Carts_Dishes.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Categories_Menus.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Clients.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Clients_Addresses.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Dishes.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Favourites.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Ingredients.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Menus.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Orders.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Owners.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Recipes.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Restaurants.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Restaurants_Addresses.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Reviews.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Data/Users.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FoodStacks.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Address.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/AddressIdentifier.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Audit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Cart.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Client.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Country.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/County.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Delivery.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Dish.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Driver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Menu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Order.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Owner.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Quantity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Restaurant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/RestaurantType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/Review.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Classes/UserAddress.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/AddressService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/CartService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/ClientService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/DeliveryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/DishService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/DriverService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/MenuService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/OrderService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/OwnerService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/PlatformService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/ReadData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../src/Functionalities/RestaurantService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Address.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Address.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/AddressToCSV.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Dish$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Dish$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Dish.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Dish.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Menu$Builder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Menu$Builder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FoodStacks with Database/Classes/Menu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Database/AddressDatabaseManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Database/DatabaseManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FoodStacks with Database/Database/DatabaseManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Database/RestaurantDatabaseManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Database/UserDatabaseManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Functionalities/AddressCSVToBean.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Functionalities/DishService.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FoodStacks with Database/Functionalities/DishService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Mains/DatabasePhase.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/FoodStacks with Database/Mains/DatabasePhase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/FoodStacks with Database/Validators/DataValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Dish.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/Dish.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Classes/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Classes/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/DishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Functionalities/DishService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Functionalities/ReadData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mains/DatabasePhase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mains/DatabasePhase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Validators/DataValidator.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +71,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.CsvPhase">
+  <component name="RunManager" selected="Application.DatabasePhase">
     <configuration name="AddressCSVToBean" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Functionalities.AddressCSVToBean" />
       <module name="FoodStacks with Database" />
@@ -202,10 +133,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DatabasePhase" />
         <item itemvalue="Application.CsvPhase" />
         <item itemvalue="Application.AddressToCSV" />
         <item itemvalue="Application.AddressCSVToBean" />
-        <item itemvalue="Application.DatabasePhase" />
       </list>
     </recent_temporary>
   </component>
@@ -223,7 +154,7 @@
       <workItem from="1621927723334" duration="12337000" />
       <workItem from="1621967584147" duration="1534000" />
       <workItem from="1622019970679" duration="25035000" />
-      <workItem from="1622058501173" duration="4361000" />
+      <workItem from="1622058501173" duration="5426000" />
     </task>
     <servers />
   </component>

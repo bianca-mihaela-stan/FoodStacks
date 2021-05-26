@@ -29,9 +29,9 @@ public class Dish implements Cloneable{
         this.id = id;
         this.name = name;
         this.recipe = recipe;
-        var dishes = DishService.getDishesById();
-        dishes.put(id, this);
-        DishService.setDishesById(dishes);
+        var dishes = DishService.getDishes();
+        dishes.add(this);
+        DishService.setDishes(dishes);
     }
 
     public Dish(Long id, String name)
@@ -45,9 +45,9 @@ public class Dish implements Cloneable{
         private Dish dish = new Dish();
 
         public Dish build() {
-            var dishes = DishService.getDishesById();
-            dishes.put(dish.id, dish);
-            DishService.setDishesById(dishes);
+            var dishes = DishService.getDishes();
+            dishes.add(dish);
+            DishService.setDishes(dishes);
             return this.dish;
         }
 
